@@ -11,27 +11,58 @@ async function seedSuperAdmin() {
     throw new Error("SUPER_ADMIN_EMAIL and SUPER_ADMIN_PASSWORD must be defined in .env");
   }
 
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) {
-    console.log("✅ Super Admin already exists");
-    return;
-  }
-
   const hashedPassword = await hashPassword(password);
 
-  await prisma.user.create({
-    data: {
-      name,
-      email,
-      emailVerified: true,
-      role: UserRole.SUPER_ADMIN,
-      accounts: {
-        create: { providerId: "credential", accountId: email, password: hashedPassword },
-      },
-    },
+  let user = await prisma.user.findUnique({
+    where: { email },
   });
 
-  console.log("✅ Super Admin created successfully");
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        emailVerified: true,
+        role: UserRole.SUPER_ADMIN,
+        accounts: {
+          create: {
+            providerId: "credential",
+            accountId: email,
+            password: hashedPassword,
+          },
+        },
+      },
+    });
+    console.log("✅ Super Admin created successfully");
+  } else {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        name,
+        role: UserRole.SUPER_ADMIN,
+      },
+    });
+
+    await prisma.account.upsert({
+      where: {
+        providerId_accountId: {
+          providerId: "credential",
+          accountId: email,
+        },
+      },
+      update: {
+        password: hashedPassword,
+      },
+      create: {
+        userId: user.id,
+        providerId: "credential",
+        accountId: email,
+        password: hashedPassword,
+      },
+    });
+
+    console.log("✅ Super Admin credentials updated successfully");
+  }
 }
 
 async function seedServices() {

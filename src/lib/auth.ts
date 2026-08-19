@@ -7,7 +7,9 @@ import { sendEmail } from "../app/utils/sendEmail";
 import { verificationEmailTemplate, resetPasswordEmailTemplate } from "../app/utils/emailTemplates";
 
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, { provider: "postgresql" }),
+  database: prismaAdapter(prisma, { 
+    provider: "postgresql" 
+  }),
 
   user: {
     additionalFields: {
@@ -22,7 +24,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: config.app.env === "production",
-    sendResetPassword: async ({ user, url }) => {
+    sendResetPassword: async ({ user, url }: { user: any; url: string }) => {
       await sendEmail({
         to: user.email,
         subject: "Reset your Nexivo AI password",
@@ -32,7 +34,7 @@ export const auth = betterAuth({
   },
 
   emailVerification: {
-    sendVerificationEmail: async ({ user, url }) => {
+    sendVerificationEmail: async ({ user, url }: { user: any; url: string }) => {
       await sendEmail({
         to: user.email,
         subject: "Verify your Nexivo AI account",
@@ -45,12 +47,12 @@ export const auth = betterAuth({
 
   socialProviders: {
     google: {
-      clientId: config.oauth.google.clientId ?? "",
-      clientSecret: config.oauth.google.clientSecret ?? "",
+      clientId: config.oauth.google.clientId || "dummy_client_id",
+      clientSecret: config.oauth.google.clientSecret || "dummy_client_secret",
     },
     github: {
-      clientId: config.oauth.github.clientId ?? "",
-      clientSecret: config.oauth.github.clientSecret ?? "",
+      clientId: config.oauth.github.clientId || "dummy_client_id",
+      clientSecret: config.oauth.github.clientSecret || "dummy_client_secret",
     },
   },
 
@@ -59,7 +61,7 @@ export const auth = betterAuth({
     updateAge: 24 * 60 * 60,
   },
 
-  trustedOrigins: [config.app.clientUrl],
+  trustedOrigins: [config.app.clientUrl || "http://localhost:3000"],
 
   advanced: {
     disableCSRFCheck: true,
@@ -70,12 +72,6 @@ export const auth = betterAuth({
     },
   },
 
-  // Exposes /api/auth/two-factor/* endpoints automatically (enable, verify,
-  // generate-backup-codes, etc.) — the existing
-  // `app.all("/api/auth/*splat", toNodeHandler(auth))` mount already
-  // routes these, no separate wiring needed. Frontend flow: after login,
-  // if the response indicates 2FA is required, call the verify endpoint
-  // with the TOTP code before the session is considered fully authenticated.
   plugins: [
     bearer(),
     twoFactor({
