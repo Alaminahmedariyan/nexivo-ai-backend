@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { Prisma } from "../../../generated/prisma/client";
+import { Prisma } from "../../../generated/prisma";
 
 type TPrismaError = {
   statusCode: number;
@@ -10,6 +10,8 @@ type TPrismaError = {
 export const handlePrismaError = (
   error: unknown
 ): TPrismaError | null => {
+  const err = error as any;
+
   if (error instanceof Prisma.PrismaClientValidationError) {
     return {
       statusCode: StatusCodes.BAD_REQUEST,
@@ -18,45 +20,45 @@ export const handlePrismaError = (
     };
   }
 
-  if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    switch (error.code) {
+  if (error instanceof Prisma.PrismaClientKnownRequestError || err?.code) {
+    const code = err.code as string;
+
+    switch (code) {
       case "P2002":
         return {
           statusCode: StatusCodes.CONFLICT,
           message: "Resource already exists.",
-          errorCode: error.code,
+          errorCode: code,
         };
 
       case "P2003":
         return {
           statusCode: StatusCodes.BAD_REQUEST,
           message: "Foreign key constraint failed.",
-          errorCode: error.code,
+          errorCode: code,
         };
 
       case "P2025":
         return {
           statusCode: StatusCodes.NOT_FOUND,
           message: "Resource not found.",
-          errorCode: error.code,
+          errorCode: code,
         };
 
       default:
         return {
           statusCode: StatusCodes.BAD_REQUEST,
           message: "Database request failed.",
-          errorCode: error.code,
+          errorCode: code,
         };
     }
   }
 
   if (error instanceof Prisma.PrismaClientInitializationError) {
-    const prismaError = error as Prisma.PrismaClientInitializationError;
-
     return {
       statusCode: StatusCodes.SERVICE_UNAVAILABLE,
       message: "Database connection failed.",
-      errorCode: prismaError.errorCode ?? "PRISMA_INIT_ERROR",
+      errorCode: err?.errorCode ?? "PRISMA_INIT_ERROR",
     };
   }
 
