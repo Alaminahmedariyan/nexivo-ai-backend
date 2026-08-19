@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "target": "esnext",
-    "types": ["node", "express"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -14,8 +13,9 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "esModuleInterop": true
   },
-  "include": ["src/**/*", "api/**/*"],
+  "include": ["src/**/*", "api/**/*", "generated/**/*"],
   "exclude": ["node_modules", "dist"]
 }
