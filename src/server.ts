@@ -1,0 +1,55 @@
+import "dotenv/config";
+import type { Server } from "http";
+import app from "./app";
+import { prisma } from "./lib/prisma";
+import config from "./app/config";
+
+const PORT = config.app.port;
+
+let server: Server;
+
+async function main() {
+  try {
+    await prisma.$connect();
+    console.log("Connected to the database successfully.");
+
+    server = app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error starting the server:", error);
+    await prisma.$disconnect();
+    process.exit(1);
+  }
+}
+
+const shutdown = async (signal: string) => {
+  console.log(`\n${signal} received. Shutting down gracefully...`);
+
+  server?.close(async () => {
+    await prisma.$disconnect();
+    console.log("Server closed, database disconnected.");
+    process.exit(0);
+  });
+
+  // Force-exit if something hangs (e.g. a stuck connection) beyond 10s.
+  setTimeout(() => {
+    console.error("Forced shutdown after timeout.");
+    process.exit(1);
+  }, 10_000).unref();
+};
+
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));
+
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled Rejection:", reason);
+  shutdown("unhandledRejection");
+});
+
+process.on("uncaughtException", (error) => {
+  console.error("Uncaught Exception:", error);
+  shutdown("uncaughtException");
+});
+
+main();

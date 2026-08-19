@@ -1,0 +1,149 @@
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  TEAM_MEMBER
+  CLIENT
+  USER
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUOTED
+  MEETING_SCHEDULED
+  NEGOTIATION
+  WON
+  LOST
+}
+
+enum ProjectStatus {
+  PLANNING
+  IN_PROGRESS
+  REVIEW
+  COMPLETED
+  ON_HOLD
+  CANCELLED
+}
+
+enum ProposalStatus {
+  DRAFT
+  SENT
+  ACCEPTED
+  REJECTED
+}
+
+enum TriggerType {
+  MANUAL
+  SCHEDULE
+  WEBHOOK
+}
+
+enum AutomationExecutionStatus {
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+enum MilestoneStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum AIUsageStatus {
+  SUCCESS
+  FAILED
+}
+
+enum NotificationType {
+  LEAD
+  PROJECT
+  SYSTEM
+  AI
+}
+
+enum ProjectMemberRole {
+  LEAD
+  DEVELOPER
+  DESIGNER
+  MANAGER
+}
+
+enum LeadSource {
+  CONTACT_FORM
+  QUOTE_FORM
+  ORGANIC
+  GOOGLE
+  LINKEDIN
+  FACEBOOK
+  REFERRAL
+  OTHER
+}
+
+enum AIFeature {
+  AI_CHAT
+  PROPOSAL_GENERATOR
+  WORKFLOW_AUTOMATION
+  QUOTE_ESTIMATOR
+}
+
+enum ProjectCurrency {
+  USD
+  EUR
+  BDT
+}
+
+enum FileCategory {
+  IMAGE
+  DOCUMENT
+  VIDEO
+  ARCHIVE
+  OTHER
+}
+
+enum NotificationEntityType {
+  LEAD
+  PROJECT
+  MILESTONE
+  CLIENT
+  PROPOSAL
+}
+
+enum BudgetRange {
+  UNDER_1K
+  RANGE_1K_5K
+  RANGE_5K_10K
+  RANGE_10K_25K
+  ABOVE_25K
+  NOT_SURE
+}
+
+enum SettingGroup {
+  GENERAL
+  SEO
+  SOCIAL
+  CONTACT
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PARTIALLY_PAID
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum PaymentMethod {
+  STRIPE
+  BANK_TRANSFER
+  CASH
+  OTHER
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}

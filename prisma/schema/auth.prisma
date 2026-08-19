@@ -1,0 +1,110 @@
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  phone         String?
+  role          UserRole  @default(USER)
+  isActive      Boolean   @default(true)
+  lastLoginAt   DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  twoFactorEnabled Boolean?    @default(false)
+  twoFactors       TwoFactor[]
+
+  sessions Session[]
+  accounts Account[]
+  apiKeys  ApiKey[]
+
+  // Business relations
+  clientProfile        Client?
+  assignedLeads        Lead[]                @relation("AssignedLeads")
+  projectMemberships   ProjectMember[]
+  timelineUpdates      Timeline[]            @relation("TimelineUpdatedBy")
+  generatedProposals   AIProposal[]          @relation("ProposalGeneratedBy")
+  aiConversations      AIConversation[]
+  aiUsageLogs          AIUsageLog[]
+  automationExecutions AutomationExecution[]
+  notifications        Notification[]
+  activityLogs         ActivityLog[]
+  uploadedFiles        ProjectFile[]         @relation("ProjectFileUploadedBy")
+
+  @@index([role])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  userId                String
+  providerId            String // "google" | "github" | "credential"
+  accountId             String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String? // credential provider only
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String // email
+  value      String // OTP / token
+  expiresAt  DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model TwoFactor {
+  id                      String    @id @default(cuid())
+  secret                  String
+  backupCodes             String
+  userId                  String
+  user                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  verified                Boolean   @default(true)
+  failedVerificationCount Int       @default(0)
+  lockedUntil             DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([secret])
+  @@index([userId])
+  @@map("two_factor")
+}
+

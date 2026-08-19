@@ -1,0 +1,1 @@
+export type SubscribeInput = { email: string };

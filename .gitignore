@@ -1,0 +1,12 @@
+# Dependencies & Build Outputs
+/node_modules
+/dist
+/.vercel
+
+# Custom Generated Prisma Client
+/generated
+
+# Environment Variables
+.env
+.env.*
+!.env.example

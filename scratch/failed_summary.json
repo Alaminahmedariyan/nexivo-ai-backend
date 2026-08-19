@@ -1,0 +1,1488 @@
+[
+  {
+    "num": 1,
+    "path": "01 - Auth > Register Admin User",
+    "statusCode": 422,
+    "url": "http://localhost:5000/api/auth/sign-up/email",
+    "bodySent": "{\n  \"name\": \"Admin User\",\n  \"email\": \"admin-test@nexivo.ai\",\n  \"password\": \"AdminPass123!\",\n  \"role\": \"ADMIN\"\n}",
+    "headersSent": {
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "message": "User already exists. Use another email.",
+      "code": "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL"
+    }
+  },
+  {
+    "num": 3,
+    "path": "01 - Auth > Register Team Member User",
+    "statusCode": 422,
+    "url": "http://localhost:5000/api/auth/sign-up/email",
+    "bodySent": "{\n  \"name\": \"Team Member\",\n  \"email\": \"team-test@nexivo.ai\",\n  \"password\": \"TeamPass123!\",\n  \"role\": \"TEAM_MEMBER\"\n}",
+    "headersSent": {
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "message": "User already exists. Use another email.",
+      "code": "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL"
+    }
+  },
+  {
+    "num": 5,
+    "path": "01 - Auth > Register Regular User",
+    "statusCode": 422,
+    "url": "http://localhost:5000/api/auth/sign-up/email",
+    "bodySent": "{\n  \"name\": \"Regular User\",\n  \"email\": \"user-test@nexivo.ai\",\n  \"password\": \"UserPass123!\",\n  \"role\": \"USER\"\n}",
+    "headersSent": {
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "message": "User already exists. Use another email.",
+      "code": "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL"
+    }
+  },
+  {
+    "num": 8,
+    "path": "01 - Auth > Negative - Login with Wrong Password",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/auth/sign-in/email",
+    "bodySent": "{\n  \"email\": \"admin-test@nexivo.ai\",\n  \"password\": \"WrongPassword999!\"\n}",
+    "headersSent": {
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "message": "Invalid email or password",
+      "code": "INVALID_EMAIL_OR_PASSWORD"
+    }
+  },
+  {
+    "num": 9,
+    "path": "02 - User Management > Get All Users (Admin - QueryBuilder)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/users?page=1&limit=10&sortBy=createdAt&sortOrder=desc",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 10,
+    "path": "02 - User Management > Get Me (Authenticated User)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/users/me",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 11,
+    "path": "02 - User Management > Get User By ID",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/users/U0UZi4lYihZrYT1Y3q2eodsD5lfNnvTe",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 12,
+    "path": "02 - User Management > Update User Role",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/users/U0UZi4lYihZrYT1Y3q2eodsD5lfNnvTe/role",
+    "bodySent": "{\n  \"role\": \"ADMIN\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 13,
+    "path": "02 - User Management > Toggle User Status",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/users/U0UZi4lYihZrYT1Y3q2eodsD5lfNnvTe/status",
+    "bodySent": "{\n  \"status\": \"ACTIVE\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 14,
+    "path": "02 - User Management > Negative - Update User Role with Invalid Enum",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/users/U0UZi4lYihZrYT1Y3q2eodsD5lfNnvTe/role",
+    "bodySent": "{\n  \"role\": \"SUPER_GOD\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 15,
+    "path": "03 - ApiKeys > Create API Key",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/api-keys",
+    "bodySent": "{\n  \"name\": \"Test n8n Integration Key\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 16,
+    "path": "03 - ApiKeys > Get All API Keys",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/api-keys",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 17,
+    "path": "03 - ApiKeys > Revoke API Key",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/api-keys/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 18,
+    "path": "03 - ApiKeys > Negative - Create API Key with Short Name",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/api-keys",
+    "bodySent": "{\n  \"name\": \"A\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 20,
+    "path": "04 - Services & Packages > Create Service (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/services",
+    "bodySent": "{\n  \"title\": \"Web Development Service {{$timestamp}}\",\n  \"description\": \"Custom full-stack web application development services.\",\n  \"icon\": \"code\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 22,
+    "path": "04 - Services & Packages > Update Service",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/services/",
+    "bodySent": "{\n  \"description\": \"Updated custom full-stack web application development services.\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 23,
+    "path": "04 - Services & Packages > Add Package to Service",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/services//packages",
+    "bodySent": "{\n  \"name\": \"Enterprise Package\",\n  \"price\": 4999.99,\n  \"features\": [\n    {\n      \"label\": \"Full Stack App\",\n      \"highlight\": true\n    },\n    {\n      \"label\": \"Dedicated Support\"\n    }\n  ]\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 24,
+    "path": "04 - Services & Packages > Update Package",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/services/packages/",
+    "bodySent": "{\n  \"price\": 5499.99\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 25,
+    "path": "04 - Services & Packages > Delete Package",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/services/packages/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 26,
+    "path": "04 - Services & Packages > Delete Service",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/services/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 28,
+    "path": "05 - Technologies > Create Technology (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/technologies",
+    "bodySent": "{\n  \"name\": \"TypeScript {{$timestamp}}\",\n  \"icon\": \"typescript-icon\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 29,
+    "path": "05 - Technologies > Update Technology",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/technologies/",
+    "bodySent": "{\n  \"name\": \"TypeScript v5\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 30,
+    "path": "05 - Technologies > Delete Technology",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/technologies/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 32,
+    "path": "06 - Portfolios > Create Portfolio (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/portfolios",
+    "bodySent": "{\n  \"title\": \"AI Platform {{$timestamp}}\",\n  \"description\": \"An advanced AI SaaS solution for enterprise customers.\",\n  \"clientName\": \"Acme Corp\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 33,
+    "path": "06 - Portfolios > Update Portfolio",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/portfolios/",
+    "bodySent": "{\n  \"isFeatured\": true\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 34,
+    "path": "06 - Portfolios > Add Portfolio Image",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/portfolios//images",
+    "bodySent": "{\n  \"url\": \"https://example.com/screenshot1.png\",\n  \"caption\": \"Dashboard Overview\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 35,
+    "path": "06 - Portfolios > Remove Portfolio Image",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/portfolios/images/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 36,
+    "path": "06 - Portfolios > Delete Portfolio",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/portfolios/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 38,
+    "path": "07 - Testimonials > Create Testimonial (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/testimonials",
+    "bodySent": "{\n  \"clientName\": \"John Doe {{$timestamp}}\",\n  \"role\": \"CTO\",\n  \"company\": \"Innovate Inc\",\n  \"content\": \"Exceptional quality and timely delivery on our backend architecture.\",\n  \"rating\": 5\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 40,
+    "path": "07 - Testimonials > Update Testimonial",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/testimonials/",
+    "bodySent": "{\n  \"isFeatured\": true\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 41,
+    "path": "07 - Testimonials > Delete Testimonial",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/testimonials/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 43,
+    "path": "08 - SiteSettings > Upsert Site Setting (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/site-settings",
+    "bodySent": "{\n  \"key\": \"test_contact_email\",\n  \"value\": \"support@nexivo.ai\",\n  \"group\": \"CONTACT\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 44,
+    "path": "08 - SiteSettings > Get Setting By Key",
+    "statusCode": 404,
+    "url": "http://localhost:5000/api/v1/site-settings/test_contact_email",
+    "bodySent": null,
+    "headersSent": {
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 404,
+      "message": "Setting not found.",
+      "stack": "AppError: Setting not found.\n    at Object.getSettingByKey (D:\\My-Portfolio\\new project\\src\\app\\modules\\siteSetting\\siteSetting.service.ts:18:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\modules\\siteSetting\\siteSetting.controller.ts:13:19)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 45,
+    "path": "08 - SiteSettings > Delete Site Setting",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/site-settings/test_contact_email",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 46,
+    "path": "09 - Newsletter > Subscribe Newsletter (Public)",
+    "statusCode": 400,
+    "url": "http://localhost:5000/api/v1/newsletter/subscribe",
+    "bodySent": "{\n  \"email\": \"newsletter-test-{{$timestamp}}@example.com\"\n}",
+    "headersSent": {
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 400,
+      "message": "Validation failed",
+      "details": [
+        {
+          "field": "email",
+          "message": "Invalid email address"
+        }
+      ],
+      "stack": "ZodError: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"invalid_format\",\n    \"format\": \"email\",\n    \"pattern\": \"/^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$/\",\n    \"path\": [\n      \"email\"\n    ],\n    \"message\": \"Invalid email address\"\n  }\n]\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\validateRequest.ts:15:39)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:1010:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:830:5"
+    }
+  },
+  {
+    "num": 47,
+    "path": "09 - Newsletter > Unsubscribe Newsletter",
+    "statusCode": 400,
+    "url": "http://localhost:5000/api/v1/newsletter/unsubscribe",
+    "bodySent": "{\n  \"email\": \"newsletter-test-{{$timestamp}}@example.com\"\n}",
+    "headersSent": {
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 400,
+      "message": "Validation failed",
+      "details": [
+        {
+          "field": "email",
+          "message": "Invalid email address"
+        }
+      ],
+      "stack": "ZodError: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"invalid_format\",\n    \"format\": \"email\",\n    \"pattern\": \"/^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$/\",\n    \"path\": [\n      \"email\"\n    ],\n    \"message\": \"Invalid email address\"\n  }\n]\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\validateRequest.ts:15:39)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:582:12)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:291:5)\n    at Function.handle (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:186:3)"
+    }
+  },
+  {
+    "num": 48,
+    "path": "09 - Newsletter > Get All Newsletter Subscribers (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/newsletter",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 50,
+    "path": "10 - Leads > Submit Contact Form (Public Lead)",
+    "statusCode": 400,
+    "url": "http://localhost:5000/api/v1/leads",
+    "bodySent": "{\n  \"name\": \"Jane Lead {{$timestamp}}\",\n  \"email\": \"lead-{{$timestamp}}@example.com\",\n  \"phone\": \"+15551234567\",\n  \"company\": \"Future AI Corp\",\n  \"serviceInterest\": \"Full Stack AI Development\",\n  \"budgetRange\": \"$10k-$25k\",\n  \"message\": \"We need an enterprise backend solution with AI integration.\"\n}",
+    "headersSent": {
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 400,
+      "message": "Validation failed",
+      "details": [
+        {
+          "field": "email",
+          "message": "Invalid email address"
+        }
+      ],
+      "stack": "ZodError: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"invalid_format\",\n    \"format\": \"email\",\n    \"pattern\": \"/^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$/\",\n    \"path\": [\n      \"email\"\n    ],\n    \"message\": \"Invalid email address\"\n  }\n]\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\validateRequest.ts:15:39)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:1010:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:830:5"
+    }
+  },
+  {
+    "num": 51,
+    "path": "10 - Leads > Get All Leads (Admin/Team - QueryBuilder)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/leads?status=NEW&page=1&limit=10",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 52,
+    "path": "10 - Leads > Get Lead By ID",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/leads/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 53,
+    "path": "10 - Leads > Update Lead",
+    "statusCode": 404,
+    "url": "http://localhost:5000/api/v1/leads/",
+    "bodySent": "{\n  \"status\": \"CONTACTED\",\n  \"notes\": \"Called client on phone.\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 404,
+      "message": "Route not found.",
+      "path": "/api/v1/leads/"
+    }
+  },
+  {
+    "num": 54,
+    "path": "10 - Leads > Convert Lead to Client",
+    "statusCode": 404,
+    "url": "http://localhost:5000/api/v1/leads//convert",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 404,
+      "message": "Route not found.",
+      "path": "/api/v1/leads//convert"
+    }
+  },
+  {
+    "num": 55,
+    "path": "10 - Leads > Delete Lead",
+    "statusCode": 404,
+    "url": "http://localhost:5000/api/v1/leads/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 404,
+      "message": "Route not found.",
+      "path": "/api/v1/leads/"
+    }
+  },
+  {
+    "num": 56,
+    "path": "11 - Clients > Create Client Direct (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/clients",
+    "bodySent": "{\n  \"companyName\": \"Acme Tech Solutions {{$timestamp}}\",\n  \"contactName\": \"Alice Client\",\n  \"contactEmail\": \"client-{{$timestamp}}@acme.com\",\n  \"phone\": \"+15559876543\",\n  \"address\": \"100 Tech Lane, Suite 400\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 57,
+    "path": "11 - Clients > Get All Clients (QueryBuilder)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/clients?page=1&limit=10&sortBy=createdAt&sortOrder=desc",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 58,
+    "path": "11 - Clients > Get Client By ID",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/clients/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 59,
+    "path": "11 - Clients > Update Client",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/clients/",
+    "bodySent": "{\n  \"notes\": \"VIP Tier 1 Enterprise Client\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 60,
+    "path": "11 - Clients > Delete Client",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/clients/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 61,
+    "path": "12 - Projects & Sub-resources > Create Project (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects",
+    "bodySent": "{\n  \"name\": \"Nexivo AI Mobile App {{$timestamp}}\",\n  \"description\": \"Cross platform React Native app integrated with backend API.\",\n  \"clientId\": \"\",\n  \"budget\": 15000,\n  \"status\": \"IN_PROGRESS\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 62,
+    "path": "12 - Projects & Sub-resources > Get All Projects (QueryBuilder)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects?status=IN_PROGRESS&page=1&limit=10",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 63,
+    "path": "12 - Projects & Sub-resources > Get Project By ID",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 64,
+    "path": "12 - Projects & Sub-resources > Update Project",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects/",
+    "bodySent": "{\n  \"progress\": 25\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 65,
+    "path": "12 - Projects & Sub-resources > Add Milestone to Project",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects//milestones",
+    "bodySent": "{\n  \"title\": \"Phase 1 - Database Schema & Auth Setup\",\n  \"description\": \"Initial database architecture and better-auth integration.\",\n  \"amount\": 3000\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 66,
+    "path": "12 - Projects & Sub-resources > Update Milestone",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects/milestones/",
+    "bodySent": "{\n  \"status\": \"COMPLETED\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 67,
+    "path": "12 - Projects & Sub-resources > Delete Milestone",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects/milestones/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 68,
+    "path": "12 - Projects & Sub-resources > Add Timeline Event to Project",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects//timelines",
+    "bodySent": "{\n  \"title\": \"Kickoff Meeting Completed\",\n  \"description\": \"Aligned project scope with key client stakeholders.\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 69,
+    "path": "12 - Projects & Sub-resources > Update Timeline Event",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects/timelines/",
+    "bodySent": "{\n  \"title\": \"Kickoff Meeting & Requirements Finalized\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 70,
+    "path": "12 - Projects & Sub-resources > Delete Timeline Event",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects/timelines/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 71,
+    "path": "12 - Projects & Sub-resources > Add Project File Metadata",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects//files",
+    "bodySent": "{\n  \"name\": \"Architecture Blueprint.pdf\",\n  \"fileUrl\": \"https://storage.example.com/files/blueprint.pdf\",\n  \"fileType\": \"application/pdf\",\n  \"fileSize\": 1048576\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 72,
+    "path": "12 - Projects & Sub-resources > Get Project Files List",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects//files",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 73,
+    "path": "12 - Projects & Sub-resources > Delete Project File (Global Endpoint)",
+    "statusCode": 404,
+    "url": "http://localhost:5000/api/v1/project-files/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 404,
+      "message": "Route not found.",
+      "path": "/api/v1/project-files/"
+    }
+  },
+  {
+    "num": 74,
+    "path": "12 - Projects & Sub-resources > Delete Project",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/projects/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 75,
+    "path": "13 - Invoices > Create Invoice (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/invoices",
+    "bodySent": "{\n  \"clientId\": \"\",\n  \"projectId\": \"\",\n  \"amount\": 3000,\n  \"currency\": \"USD\",\n  \"dueDate\": \"2026-09-01T00:00:00.000Z\",\n  \"notes\": \"Invoice for Milestone 1 Completion.\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 76,
+    "path": "13 - Invoices > Get All Invoices (QueryBuilder)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/invoices?status=UNPAID&page=1&limit=10",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 77,
+    "path": "13 - Invoices > Get Invoice By ID",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/invoices/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 78,
+    "path": "13 - Invoices > Update Invoice Status",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/invoices//status",
+    "bodySent": "{\n  \"status\": \"PAID\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 79,
+    "path": "13 - Invoices > Delete Invoice",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/invoices/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 80,
+    "path": "14 - Payments > Create Stripe Checkout Session",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/payments/create-checkout-session",
+    "bodySent": "{\n  \"invoiceId\": \"\",\n  \"amount\": 3000,\n  \"currency\": \"usd\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 81,
+    "path": "14 - Payments > Get All Payments (QueryBuilder)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/payments?page=1&limit=10",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 82,
+    "path": "14 - Payments > Get Payment By ID",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/payments/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 83,
+    "path": "14 - Payments > Stripe Webhook (Mock Test - Test Mode)",
+    "statusCode": 400,
+    "url": "http://localhost:5000/api/v1/payments/webhook",
+    "bodySent": "{\n  \"type\": \"payment_intent.succeeded\",\n  \"data\": {\n    \"object\": {\n      \"id\": \"pi_test_12345\"\n    }\n  }\n}",
+    "headersSent": {
+      "stripe-signature": "t=1700000000,v1=mock_signature_test",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "message": "Invalid Stripe webhook signature."
+    }
+  },
+  {
+    "num": 87,
+    "path": "15 - AI Module > Get All AI Conversations (Admin/Team)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/ai/conversations?page=1&limit=10",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 88,
+    "path": "15 - AI Module > Create AI Proposal (Admin/Team)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/ai/proposals",
+    "bodySent": "{\n  \"title\": \"AI Integration Scope & Proposal\",\n  \"content\": \"Complete breakdown of OpenAI API integration with backend queues.\",\n  \"amount\": 8500,\n  \"currency\": \"USD\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 89,
+    "path": "15 - AI Module > Get All AI Proposals",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/ai/proposals?page=1&limit=10",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 90,
+    "path": "15 - AI Module > Get AI Proposal By ID",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/ai/proposals/",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 91,
+    "path": "15 - AI Module > Update AI Proposal Status",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/ai/proposals//status",
+    "bodySent": "{\n  \"status\": \"SENT\"\n}",
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 92,
+    "path": "15 - AI Module > Accept AI Proposal",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/ai/proposals//accept",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 93,
+    "path": "15 - AI Module > Get AI Usage Logs (Admin)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/ai/usage-logs",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 94,
+    "path": "15 - AI Module > Log Automation Execution (n8n Webhook with x-api-key)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/ai/automation-executions",
+    "bodySent": "{\n  \"workflowName\": \"n8n Lead Enrichment Flow\",\n  \"triggerType\": \"WEBHOOK\",\n  \"status\": \"SUCCESS\",\n  \"executionTime\": 1250\n}",
+    "headersSent": {
+      "x-api-key": "",
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "Missing x-api-key header.",
+      "stack": "AppError: Missing x-api-key header.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireApiKey.ts:18:13)\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:13)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:582:12)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:291:5)"
+    }
+  },
+  {
+    "num": 95,
+    "path": "15 - AI Module > Get All Automation Executions (Admin/Team)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/ai/automation-executions",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 96,
+    "path": "16 - Notifications > Get My Notifications",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/notifications?page=1&limit=10",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 97,
+    "path": "16 - Notifications > Get Unread Notification Count",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/notifications/unread-count",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 98,
+    "path": "16 - Notifications > Mark Notification As Read",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/notifications//read",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 99,
+    "path": "16 - Notifications > Mark All Notifications As Read",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/notifications/read-all",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  },
+  {
+    "num": 100,
+    "path": "17 - Activity Logs > Get Activity Logs (Admin/Team - QueryBuilder)",
+    "statusCode": 401,
+    "url": "http://localhost:5000/api/v1/activity-logs?page=1&limit=10&sortBy=createdAt&sortOrder=desc",
+    "bodySent": null,
+    "headersSent": {
+      "Authorization": "Bearer h6ejW4IF9SPAioysUuwioF3HOqfrHOML",
+      "Origin": "http://localhost:3000"
+    },
+    "response": {
+      "success": false,
+      "statusCode": 401,
+      "message": "You are not authorized. Please sign in.",
+      "stack": "AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"
+    }
+  }
+]

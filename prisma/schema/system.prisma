@@ -1,0 +1,36 @@
+model Notification {
+  id         String                  @id @default(cuid())
+  userId     String
+  title      String
+  message    String
+  type       NotificationType        @default(SYSTEM)
+  entityType NotificationEntityType?
+  entityId   String?
+  isRead     Boolean                 @default(false)
+  readAt     DateTime?
+  link       String? // frontend route/URL to navigate to on click
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@map("notification")
+}
+
+model ActivityLog {
+  id         String  @id @default(cuid())
+  userId     String?
+  action     String // "created" | "updated" | "deleted" | "status_changed"
+  entityType String // "Lead" | "Project" | "Client"
+  entityId   String
+  metadata   Json? // before/after values
+
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([entityType, entityId])
+  @@index([userId])
+  @@map("activity_log")
+}

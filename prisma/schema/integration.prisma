@@ -1,0 +1,17 @@
+model ApiKey {
+  id      String @id @default(cuid())
+  name    String
+  keyHash String @unique
+  prefix  String
+
+  lastUsedAt DateTime?
+  expiresAt  DateTime?
+  isActive   Boolean   @default(true)
+
+  createdById String?
+  createdAt   DateTime @default(now())
+
+  createdBy User? @relation(fields: [createdById], references: [id])
+
+  @@index([keyHash])
+}

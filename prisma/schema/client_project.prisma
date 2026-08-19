@@ -1,0 +1,120 @@
+model Client {
+  id          String  @id @default(cuid())
+  userId      String? @unique // nullable: Client can exist before a User account is created/linked
+  leadId      String? @unique
+  companyName String?
+  billingInfo Json?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  user         User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  lead         Lead?         @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  projects     Project[]
+  proposals    AIProposal[]
+  invoices     Invoice[]
+  testimonials Testimonial[]
+
+  @@index([userId])
+  @@map("client")
+}
+
+model Project {
+  id          String          @id @default(cuid())
+  clientId    String
+  title       String
+  description String          @db.Text
+  status      ProjectStatus   @default(PLANNING)
+  startDate   DateTime?
+  dueDate     DateTime?
+  budget      Decimal?        @db.Decimal(10, 2)
+  currency    ProjectCurrency @default(USD)
+  completedAt DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  client     Client          @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  members    ProjectMember[]
+  milestones Milestone[]
+  timeline   Timeline[]
+  files      ProjectFile[]
+  invoices   Invoice[]
+
+  @@index([clientId, status])
+  @@index([status])
+  @@map("project")
+}
+
+model ProjectMember {
+  projectId   String
+  userId      String
+  projectRole ProjectMemberRole @default(DEVELOPER)
+  joinedAt    DateTime          @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, userId])
+  @@map("project_member")
+}
+
+model Milestone {
+  id          String          @id @default(cuid())
+  projectId   String
+  title       String
+  description String?
+  dueDate     DateTime?
+  status      MilestoneStatus @default(PENDING)
+  order       Int             @default(0)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  invoices  Invoice[]
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([status])
+  @@map("milestone")
+}
+
+// Client-facing progress narrative (separate from internal Milestone)
+model Timeline {
+  id          String   @id @default(cuid())
+  projectId   String
+  title       String // "Design Started"
+  description String?
+  statusDate  DateTime @default(now())
+  updatedById String
+
+  createdAt DateTime @default(now())
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  updatedBy User    @relation("TimelineUpdatedBy", fields: [updatedById], references: [id], onDelete: Restrict)
+
+  @@index([projectId])
+  @@map("timeline")
+}
+
+model ProjectFile {
+  id           String       @id @default(cuid())
+  projectId    String
+  url          String
+  name         String
+  category     FileCategory @default(OTHER) // broad bucket, for UI icon/filter
+  mimeType     String // exact type e.g. "application/pdf" — never constrained by enum
+  size         Int
+  uploadedById String?
+
+  uploadedAt DateTime @default(now())
+
+  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  uploadedBy User?   @relation("ProjectFileUploadedBy", fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  @@index([projectId])
+  @@index([uploadedById])
+  @@map("project_file")
+}

@@ -1,0 +1,315 @@
+[FAIL 422] 1. 01 - Auth > Register Admin User
+  URL: http://localhost:5000/api/auth/sign-up/email
+  Resp: {"message":"User already exists. Use another email.","code":"USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL"}
+[PASS 200] 2. 01 - Auth > Login Admin User
+  URL: http://localhost:5000/api/auth/sign-in/email
+  Resp: {"redirect":false,"token":"h6ejW4IF9SPAioysUuwioF3HOqfrHOML","user":{"name":"Admin User","email":"admin-test@nexivo.ai","emailVerified":false,"image":null,"createdAt":"2026-08-08T17:28:35.461Z","updatedAt":"2026-08-08T17:28:35.461Z","twoFactorEnabled":false,"role":"ADMIN","phone":null,"isActive":true,"lastLoginAt":null,"deletedAt":null,"id":"U0UZi4lYihZrYT1Y3q2eodsD5lfNnvTe"}}
+[FAIL 422] 3. 01 - Auth > Register Team Member User
+  URL: http://localhost:5000/api/auth/sign-up/email
+  Resp: {"message":"User already exists. Use another email.","code":"USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL"}
+[PASS 200] 4. 01 - Auth > Login Team Member User
+  URL: http://localhost:5000/api/auth/sign-in/email
+  Resp: {"redirect":false,"token":"burcWS0z1E99QVJ0kODDd7EkQWzRl5xK","user":{"name":"Team Member","email":"team-test@nexivo.ai","emailVerified":false,"image":null,"createdAt":"2026-08-08T17:28:56.856Z","updatedAt":"2026-08-08T17:28:56.856Z","twoFactorEnabled":false,"role":"TEAM_MEMBER","phone":null,"isActive":true,"lastLoginAt":null,"deletedAt":null,"id":"1W1nQM53mIMCjW3UhcrR2Gtc9L3u7Kx2"}}
+[FAIL 422] 5. 01 - Auth > Register Regular User
+  URL: http://localhost:5000/api/auth/sign-up/email
+  Resp: {"message":"User already exists. Use another email.","code":"USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL"}
+[PASS 200] 6. 01 - Auth > Login Regular User
+  URL: http://localhost:5000/api/auth/sign-in/email
+  Resp: {"redirect":false,"token":"KLLKQfiA0aT4mzxizElPt68mn3PGtuvm","user":{"name":"Regular User","email":"user-test@nexivo.ai","emailVerified":false,"image":null,"createdAt":"2026-08-08T17:28:59.348Z","updatedAt":"2026-08-08T17:28:59.348Z","twoFactorEnabled":false,"role":"USER","phone":null,"isActive":true,"lastLoginAt":null,"deletedAt":null,"id":"G9rtrx4hdNoSx0Frn9Uf3kZJ9lEcIPtl"}}
+[PASS 200] 7. 01 - Auth > Get Current Session
+  URL: http://localhost:5000/api/auth/get-session
+  Resp: null
+[FAIL 401] 8. 01 - Auth > Negative - Login with Wrong Password
+  URL: http://localhost:5000/api/auth/sign-in/email
+  Resp: {"message":"Invalid email or password","code":"INVALID_EMAIL_OR_PASSWORD"}
+[FAIL 401] 9. 02 - User Management > Get All Users (Admin - QueryBuilder)
+  URL: http://localhost:5000/api/v1/users?page=1&limit=10&sortBy=createdAt&sortOrder=desc
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 10. 02 - User Management > Get Me (Authenticated User)
+  URL: http://localhost:5000/api/v1/users/me
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 11. 02 - User Management > Get User By ID
+  URL: http://localhost:5000/api/v1/users/U0UZi4lYihZrYT1Y3q2eodsD5lfNnvTe
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 12. 02 - User Management > Update User Role
+  URL: http://localhost:5000/api/v1/users/U0UZi4lYihZrYT1Y3q2eodsD5lfNnvTe/role
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 13. 02 - User Management > Toggle User Status
+  URL: http://localhost:5000/api/v1/users/U0UZi4lYihZrYT1Y3q2eodsD5lfNnvTe/status
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 14. 02 - User Management > Negative - Update User Role with Invalid Enum
+  URL: http://localhost:5000/api/v1/users/U0UZi4lYihZrYT1Y3q2eodsD5lfNnvTe/role
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 15. 03 - ApiKeys > Create API Key
+  URL: http://localhost:5000/api/v1/api-keys
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 16. 03 - ApiKeys > Get All API Keys
+  URL: http://localhost:5000/api/v1/api-keys
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 17. 03 - ApiKeys > Revoke API Key
+  URL: http://localhost:5000/api/v1/api-keys/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 18. 03 - ApiKeys > Negative - Create API Key with Short Name
+  URL: http://localhost:5000/api/v1/api-keys
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 200] 19. 04 - Services & Packages > Get Public Services (QueryBuilder)
+  URL: http://localhost:5000/api/v1/services?limit=10&page=1
+  Resp: {"success":true,"message":"Services retrieved successfully.","meta":{"page":1,"limit":10,"total":1,"totalPage":1},"data":[{"id":"cmskafm6s0000ycuqh4hr7d7f","title":"Web Development Service 1786188364","slug":"web-development-service-1786188364","description":"Updated custom full-stack web application development services.","icon":"code","isActive":true,"order":0,"createdAt":"2026-08-08T11:26:03.796Z","updatedAt":"2026-08-08T11:26:04.391Z","packages":[]}]}
+[FAIL 401] 20. 04 - Services & Packages > Create Service (Admin)
+  URL: http://localhost:5000/api/v1/services
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 200] 21. 04 - Services & Packages > Get Service By ID
+  URL: http://localhost:5000/api/v1/services/
+  Resp: {"success":true,"message":"Services retrieved successfully.","meta":{"page":1,"limit":10,"total":1,"totalPage":1},"data":[{"id":"cmskafm6s0000ycuqh4hr7d7f","title":"Web Development Service 1786188364","slug":"web-development-service-1786188364","description":"Updated custom full-stack web application development services.","icon":"code","isActive":true,"order":0,"createdAt":"2026-08-08T11:26:03.796Z","updatedAt":"2026-08-08T11:26:04.391Z","packages":[]}]}
+[FAIL 401] 22. 04 - Services & Packages > Update Service
+  URL: http://localhost:5000/api/v1/services/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 23. 04 - Services & Packages > Add Package to Service
+  URL: http://localhost:5000/api/v1/services//packages
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 24. 04 - Services & Packages > Update Package
+  URL: http://localhost:5000/api/v1/services/packages/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 25. 04 - Services & Packages > Delete Package
+  URL: http://localhost:5000/api/v1/services/packages/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 26. 04 - Services & Packages > Delete Service
+  URL: http://localhost:5000/api/v1/services/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 200] 27. 05 - Technologies > Get All Technologies (Public)
+  URL: http://localhost:5000/api/v1/technologies
+  Resp: {"success":true,"message":"Technologies retrieved successfully.","data":[]}
+[FAIL 401] 28. 05 - Technologies > Create Technology (Admin)
+  URL: http://localhost:5000/api/v1/technologies
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 29. 05 - Technologies > Update Technology
+  URL: http://localhost:5000/api/v1/technologies/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 30. 05 - Technologies > Delete Technology
+  URL: http://localhost:5000/api/v1/technologies/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 200] 31. 06 - Portfolios > Get All Portfolios (Public)
+  URL: http://localhost:5000/api/v1/portfolios?limit=10&page=1
+  Resp: {"success":true,"message":"Portfolios retrieved successfully.","meta":{"page":1,"limit":10,"total":0,"totalPage":1},"data":[]}
+[FAIL 401] 32. 06 - Portfolios > Create Portfolio (Admin)
+  URL: http://localhost:5000/api/v1/portfolios
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 33. 06 - Portfolios > Update Portfolio
+  URL: http://localhost:5000/api/v1/portfolios/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 34. 06 - Portfolios > Add Portfolio Image
+  URL: http://localhost:5000/api/v1/portfolios//images
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 35. 06 - Portfolios > Remove Portfolio Image
+  URL: http://localhost:5000/api/v1/portfolios/images/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 36. 06 - Portfolios > Delete Portfolio
+  URL: http://localhost:5000/api/v1/portfolios/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 200] 37. 07 - Testimonials > Get Public Testimonials
+  URL: http://localhost:5000/api/v1/testimonials
+  Resp: {"success":true,"message":"Testimonials retrieved successfully.","meta":{"page":1,"limit":10,"total":0,"totalPage":1},"data":[]}
+[FAIL 401] 38. 07 - Testimonials > Create Testimonial (Admin)
+  URL: http://localhost:5000/api/v1/testimonials
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 200] 39. 07 - Testimonials > Get Testimonial By ID
+  URL: http://localhost:5000/api/v1/testimonials/
+  Resp: {"success":true,"message":"Testimonials retrieved successfully.","meta":{"page":1,"limit":10,"total":0,"totalPage":1},"data":[]}
+[FAIL 401] 40. 07 - Testimonials > Update Testimonial
+  URL: http://localhost:5000/api/v1/testimonials/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 41. 07 - Testimonials > Delete Testimonial
+  URL: http://localhost:5000/api/v1/testimonials/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 200] 42. 08 - SiteSettings > Get All Site Settings (Public)
+  URL: http://localhost:5000/api/v1/site-settings
+  Resp: {"success":true,"message":"Settings retrieved successfully.","data":[]}
+[FAIL 401] 43. 08 - SiteSettings > Upsert Site Setting (Admin)
+  URL: http://localhost:5000/api/v1/site-settings
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 404] 44. 08 - SiteSettings > Get Setting By Key
+  URL: http://localhost:5000/api/v1/site-settings/test_contact_email
+  Resp: {"success":false,"statusCode":404,"message":"Setting not found.","stack":"AppError: Setting not found.\n    at Object.getSettingByKey (D:\\My-Portfolio\\new project\\src\\app\\modules\\siteSetting\\siteSetting.service.ts:18:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\modules\\siteSetting\\siteSetting.controller.ts:13:19)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 45. 08 - SiteSettings > Delete Site Setting
+  URL: http://localhost:5000/api/v1/site-settings/test_contact_email
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 400] 46. 09 - Newsletter > Subscribe Newsletter (Public)
+  URL: http://localhost:5000/api/v1/newsletter/subscribe
+  Resp: {"success":false,"statusCode":400,"message":"Validation failed","details":[{"field":"email","message":"Invalid email address"}],"stack":"ZodError: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"invalid_format\",\n    \"format\": \"email\",\n    \"pattern\": \"/^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$/\",\n    \"path\": [\n      \"email\"\n    ],\n    \"message\": \"Invalid email address\"\n  }\n]\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\validateRequest.ts:15:39)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:1010:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:830:5"}
+[FAIL 400] 47. 09 - Newsletter > Unsubscribe Newsletter
+  URL: http://localhost:5000/api/v1/newsletter/unsubscribe
+  Resp: {"success":false,"statusCode":400,"message":"Validation failed","details":[{"field":"email","message":"Invalid email address"}],"stack":"ZodError: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"invalid_format\",\n    \"format\": \"email\",\n    \"pattern\": \"/^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$/\",\n    \"path\": [\n      \"email\"\n    ],\n    \"message\": \"Invalid email address\"\n  }\n]\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\validateRequest.ts:15:39)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:582:12)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:291:5)\n    at Function.handle (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:186:3)"}
+[FAIL 401] 48. 09 - Newsletter > Get All Newsletter Subscribers (Admin)
+  URL: http://localhost:5000/api/v1/newsletter
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 400] 49. 09 - Newsletter > Negative - Subscribe with Invalid Email Format
+  URL: http://localhost:5000/api/v1/newsletter/subscribe
+  Resp: {"success":false,"statusCode":400,"message":"Validation failed","details":[{"field":"email","message":"Invalid email address"}],"stack":"ZodError: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"invalid_format\",\n    \"format\": \"email\",\n    \"pattern\": \"/^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$/\",\n    \"path\": [\n      \"email\"\n    ],\n    \"message\": \"Invalid email address\"\n  }\n]\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\validateRequest.ts:15:39)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:1010:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:830:5"}
+[FAIL 400] 50. 10 - Leads > Submit Contact Form (Public Lead)
+  URL: http://localhost:5000/api/v1/leads
+  Resp: {"success":false,"statusCode":400,"message":"Validation failed","details":[{"field":"email","message":"Invalid email address"}],"stack":"ZodError: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"invalid_format\",\n    \"format\": \"email\",\n    \"pattern\": \"/^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$/\",\n    \"path\": [\n      \"email\"\n    ],\n    \"message\": \"Invalid email address\"\n  }\n]\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\validateRequest.ts:15:39)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:1010:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async file:///D:/My-Portfolio/new%20project/node_modules/express-rate-limit/dist/index.mjs:830:5"}
+[FAIL 401] 51. 10 - Leads > Get All Leads (Admin/Team - QueryBuilder)
+  URL: http://localhost:5000/api/v1/leads?status=NEW&page=1&limit=10
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 52. 10 - Leads > Get Lead By ID
+  URL: http://localhost:5000/api/v1/leads/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 404] 53. 10 - Leads > Update Lead
+  URL: http://localhost:5000/api/v1/leads/
+  Resp: {"success":false,"statusCode":404,"message":"Route not found.","path":"/api/v1/leads/"}
+[FAIL 404] 54. 10 - Leads > Convert Lead to Client
+  URL: http://localhost:5000/api/v1/leads//convert
+  Resp: {"success":false,"statusCode":404,"message":"Route not found.","path":"/api/v1/leads//convert"}
+[FAIL 404] 55. 10 - Leads > Delete Lead
+  URL: http://localhost:5000/api/v1/leads/
+  Resp: {"success":false,"statusCode":404,"message":"Route not found.","path":"/api/v1/leads/"}
+[FAIL 401] 56. 11 - Clients > Create Client Direct (Admin)
+  URL: http://localhost:5000/api/v1/clients
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 57. 11 - Clients > Get All Clients (QueryBuilder)
+  URL: http://localhost:5000/api/v1/clients?page=1&limit=10&sortBy=createdAt&sortOrder=desc
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 58. 11 - Clients > Get Client By ID
+  URL: http://localhost:5000/api/v1/clients/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 59. 11 - Clients > Update Client
+  URL: http://localhost:5000/api/v1/clients/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 60. 11 - Clients > Delete Client
+  URL: http://localhost:5000/api/v1/clients/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 61. 12 - Projects & Sub-resources > Create Project (Admin)
+  URL: http://localhost:5000/api/v1/projects
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 62. 12 - Projects & Sub-resources > Get All Projects (QueryBuilder)
+  URL: http://localhost:5000/api/v1/projects?status=IN_PROGRESS&page=1&limit=10
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 63. 12 - Projects & Sub-resources > Get Project By ID
+  URL: http://localhost:5000/api/v1/projects/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 64. 12 - Projects & Sub-resources > Update Project
+  URL: http://localhost:5000/api/v1/projects/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 65. 12 - Projects & Sub-resources > Add Milestone to Project
+  URL: http://localhost:5000/api/v1/projects//milestones
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 66. 12 - Projects & Sub-resources > Update Milestone
+  URL: http://localhost:5000/api/v1/projects/milestones/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 67. 12 - Projects & Sub-resources > Delete Milestone
+  URL: http://localhost:5000/api/v1/projects/milestones/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 68. 12 - Projects & Sub-resources > Add Timeline Event to Project
+  URL: http://localhost:5000/api/v1/projects//timelines
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 69. 12 - Projects & Sub-resources > Update Timeline Event
+  URL: http://localhost:5000/api/v1/projects/timelines/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 70. 12 - Projects & Sub-resources > Delete Timeline Event
+  URL: http://localhost:5000/api/v1/projects/timelines/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 71. 12 - Projects & Sub-resources > Add Project File Metadata
+  URL: http://localhost:5000/api/v1/projects//files
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 72. 12 - Projects & Sub-resources > Get Project Files List
+  URL: http://localhost:5000/api/v1/projects//files
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 404] 73. 12 - Projects & Sub-resources > Delete Project File (Global Endpoint)
+  URL: http://localhost:5000/api/v1/project-files/
+  Resp: {"success":false,"statusCode":404,"message":"Route not found.","path":"/api/v1/project-files/"}
+[FAIL 401] 74. 12 - Projects & Sub-resources > Delete Project
+  URL: http://localhost:5000/api/v1/projects/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 75. 13 - Invoices > Create Invoice (Admin)
+  URL: http://localhost:5000/api/v1/invoices
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 76. 13 - Invoices > Get All Invoices (QueryBuilder)
+  URL: http://localhost:5000/api/v1/invoices?status=UNPAID&page=1&limit=10
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 77. 13 - Invoices > Get Invoice By ID
+  URL: http://localhost:5000/api/v1/invoices/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 78. 13 - Invoices > Update Invoice Status
+  URL: http://localhost:5000/api/v1/invoices//status
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 79. 13 - Invoices > Delete Invoice
+  URL: http://localhost:5000/api/v1/invoices/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 80. 14 - Payments > Create Stripe Checkout Session
+  URL: http://localhost:5000/api/v1/payments/create-checkout-session
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 81. 14 - Payments > Get All Payments (QueryBuilder)
+  URL: http://localhost:5000/api/v1/payments?page=1&limit=10
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 82. 14 - Payments > Get Payment By ID
+  URL: http://localhost:5000/api/v1/payments/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 400] 83. 14 - Payments > Stripe Webhook (Mock Test - Test Mode)
+  URL: http://localhost:5000/api/v1/payments/webhook
+  Resp: {"success":false,"message":"Invalid Stripe webhook signature."}
+[PASS 201] 84. 15 - AI Module > Start AI Conversation (Public)
+  URL: http://localhost:5000/api/v1/ai/conversations
+  Resp: {"success":true,"message":"Conversation started.","data":{"id":"cmsknh7e50000usuqgqs33i0g","userId":null,"leadId":null,"title":"Inquiry regarding custom AI solutions","messages":[{"role":"user","content":"Hello! Can you summarize your AI capabilities?","timestamp":"2026-08-08T17:31:12.939Z"}],"createdAt":"2026-08-08T17:31:12.941Z","updatedAt":"2026-08-08T17:31:12.941Z"}}
+[PASS 200] 85. 15 - AI Module > Add Message to AI Conversation
+  URL: http://localhost:5000/api/v1/ai/conversations/cmsknh7e50000usuqgqs33i0g/messages
+  Resp: {"success":true,"message":"Message added.","data":{"id":"cmsknh7e50000usuqgqs33i0g","userId":null,"leadId":null,"title":"Inquiry regarding custom AI solutions","messages":[{"role":"user","content":"Hello! Can you summarize your AI capabilities?","timestamp":"2026-08-08T17:31:12.939Z"},{"role":"user","content":"What is your typical turnaround time for an MVP?","timestamp":"2026-08-08T17:31:13.053Z"}],"createdAt":"2026-08-08T17:31:12.941Z","updatedAt":"2026-08-08T17:31:13.057Z"}}
+[PASS 200] 86. 15 - AI Module > Get AI Conversation By ID
+  URL: http://localhost:5000/api/v1/ai/conversations/cmsknh7e50000usuqgqs33i0g
+  Resp: {"success":true,"message":"Conversation retrieved.","data":{"id":"cmsknh7e50000usuqgqs33i0g","userId":null,"leadId":null,"title":"Inquiry regarding custom AI solutions","messages":[{"role":"user","content":"Hello! Can you summarize your AI capabilities?","timestamp":"2026-08-08T17:31:12.939Z"},{"role":"user","content":"What is your typical turnaround time for an MVP?","timestamp":"2026-08-08T17:31:13.053Z"}],"createdAt":"2026-08-08T17:31:12.941Z","updatedAt":"2026-08-08T17:31:13.057Z"}}
+[FAIL 401] 87. 15 - AI Module > Get All AI Conversations (Admin/Team)
+  URL: http://localhost:5000/api/v1/ai/conversations?page=1&limit=10
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 88. 15 - AI Module > Create AI Proposal (Admin/Team)
+  URL: http://localhost:5000/api/v1/ai/proposals
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 89. 15 - AI Module > Get All AI Proposals
+  URL: http://localhost:5000/api/v1/ai/proposals?page=1&limit=10
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 90. 15 - AI Module > Get AI Proposal By ID
+  URL: http://localhost:5000/api/v1/ai/proposals/
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 91. 15 - AI Module > Update AI Proposal Status
+  URL: http://localhost:5000/api/v1/ai/proposals//status
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 92. 15 - AI Module > Accept AI Proposal
+  URL: http://localhost:5000/api/v1/ai/proposals//accept
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 93. 15 - AI Module > Get AI Usage Logs (Admin)
+  URL: http://localhost:5000/api/v1/ai/usage-logs
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 94. 15 - AI Module > Log Automation Execution (n8n Webhook with x-api-key)
+  URL: http://localhost:5000/api/v1/ai/automation-executions
+  Resp: {"success":false,"statusCode":401,"message":"Missing x-api-key header.","stack":"AppError: Missing x-api-key header.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireApiKey.ts:18:13)\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:13)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:582:12)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:291:5)"}
+[FAIL 401] 95. 15 - AI Module > Get All Automation Executions (Admin/Team)
+  URL: http://localhost:5000/api/v1/ai/automation-executions
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 96. 16 - Notifications > Get My Notifications
+  URL: http://localhost:5000/api/v1/notifications?page=1&limit=10
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 97. 16 - Notifications > Get Unread Notification Count
+  URL: http://localhost:5000/api/v1/notifications/unread-count
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 98. 16 - Notifications > Mark Notification As Read
+  URL: http://localhost:5000/api/v1/notifications//read
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 99. 16 - Notifications > Mark All Notifications As Read
+  URL: http://localhost:5000/api/v1/notifications/read-all
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[FAIL 401] 100. 17 - Activity Logs > Get Activity Logs (Admin/Team - QueryBuilder)
+  URL: http://localhost:5000/api/v1/activity-logs?page=1&limit=10&sortBy=createdAt&sortOrder=desc
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 401] 101. 18 - Dedicated Security Tests > Missing Token (Unauthorized)
+  URL: http://localhost:5000/api/v1/users
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 401] 102. 18 - Dedicated Security Tests > Invalid Token Header
+  URL: http://localhost:5000/api/v1/users
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 401] 103. 18 - Dedicated Security Tests > Wrong Role Access (User accessing Admin endpoint)
+  URL: http://localhost:5000/api/v1/activity-logs
+  Resp: {"success":false,"statusCode":401,"message":"You are not authorized. Please sign in.","stack":"AppError: You are not authorized. Please sign in.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireAuth.ts:40:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}
+[PASS 401] 104. 18 - Dedicated Security Tests > Missing API Key on n8n Webhook
+  URL: http://localhost:5000/api/v1/ai/automation-executions
+  Resp: {"success":false,"statusCode":401,"message":"Missing x-api-key header.","stack":"AppError: Missing x-api-key header.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireApiKey.ts:18:13)\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:13)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\My-Portfolio\\new project\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:582:12)\n    at next (D:\\My-Portfolio\\new project\\node_modules\\router\\index.js:291:5)"}
+[PASS 401] 105. 18 - Dedicated Security Tests > Invalid API Key Header
+  URL: http://localhost:5000/api/v1/ai/automation-executions
+  Resp: {"success":false,"statusCode":401,"message":"Invalid or revoked API key.","stack":"AppError: Invalid or revoked API key.\n    at <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\middlewares\\requireApiKey.ts:25:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (D:\\My-Portfolio\\new project\\src\\app\\utils\\catchAsync.ts:10:7)"}

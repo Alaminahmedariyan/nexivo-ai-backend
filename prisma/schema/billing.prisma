@@ -1,0 +1,66 @@
+model Invoice {
+  id            String  @id @default(cuid())
+  invoiceNumber String  @unique
+  clientId      String
+  projectId     String?
+  milestoneId   String?
+
+  items    Json
+  subtotal Decimal         @db.Decimal(10, 2)
+  tax      Decimal         @default(0) @db.Decimal(10, 2)
+  total    Decimal         @db.Decimal(10, 2)
+  currency ProjectCurrency @default(USD)
+
+  status   InvoiceStatus @default(DRAFT)
+  dueDate  DateTime?
+  issuedAt DateTime?
+  paidAt   DateTime?
+
+  notes String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  client    Client     @relation(fields: [clientId], references: [id])
+  project   Project?   @relation(fields: [projectId], references: [id])
+  milestone Milestone? @relation(fields: [milestoneId], references: [id])
+
+  payments Payment[]
+
+  @@index([clientId])
+  @@index([projectId])
+  @@index([status])
+}
+
+model Payment {
+  id        String @id @default(cuid())
+  invoiceId String
+
+  amount   Decimal         @db.Decimal(10, 2)
+  currency ProjectCurrency @default(USD)
+
+  method PaymentMethod @default(STRIPE)
+  status PaymentStatus @default(PENDING)
+
+  stripePaymentIntentId String? @unique
+  stripeChargeId        String?
+  stripeRefundId        String? @unique
+
+  paidAt DateTime?
+  notes  String?   @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+
+  @@index([invoiceId])
+  @@index([status])
+}
+
+model StripeWebhookEvent {
+  id            String   @id @default(cuid())
+  stripeEventId String   @unique
+  type          String
+  processedAt   DateTime @default(now())
+}

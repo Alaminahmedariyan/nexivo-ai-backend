@@ -1,0 +1,126 @@
+model Service {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String  @unique
+  description String  @db.Text
+  icon        String?
+  isActive    Boolean @default(true)
+  order       Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  packages   ServicePackage[]
+  portfolios Portfolio[]
+  leads      Lead[]
+
+  @@index([slug])
+  @@map("service")
+}
+
+model ServicePackage {
+  id        String  @id @default(cuid())
+  serviceId String
+  name      String // "Starter" | "Growth" | "Enterprise"
+  price     Decimal @db.Decimal(10, 2)
+  features  Json // array of { label, icon?, highlight? } — Json for future extensibility
+  order     Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@index([serviceId])
+  @@map("service_package")
+}
+
+model Portfolio {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String  @unique
+  description String  @db.Text
+  thumbnail   String
+  liveUrl     String?
+  serviceId   String?
+  isFeatured  Boolean @default(false)
+  order       Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  service      Service?              @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  images       PortfolioImage[]
+  technologies PortfolioTechnology[]
+
+  @@index([serviceId])
+  @@map("portfolio")
+}
+
+model PortfolioImage {
+  id          String  @id @default(cuid())
+  portfolioId String
+  url         String
+  alt         String?
+  order       Int     @default(0)
+
+  createdAt DateTime @default(now())
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@index([portfolioId])
+  @@map("portfolio_image")
+}
+
+model Technology {
+  id   String  @id @default(cuid())
+  name String  @unique
+  icon String?
+
+  portfolios PortfolioTechnology[]
+
+  @@map("technology")
+}
+
+model PortfolioTechnology {
+  portfolioId  String
+  technologyId String
+
+  portfolio  Portfolio  @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  technology Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([portfolioId, technologyId])
+  @@map("portfolio_technology")
+}
+
+model SiteSetting {
+  id        String        @id @default(cuid())
+  key       String        @unique // "logo" | "phone" | "email" | "socialLinks" | "seo"
+  value     Json
+  group     SettingGroup?
+  updatedAt DateTime      @updatedAt
+
+  @@map("site_setting")
+}
+
+model Testimonial {
+  id       String  @id @default(cuid())
+  clientId String?
+
+  clientName String
+  role       String?
+  company    String?
+  avatarUrl  String?
+  content    String  @db.Text
+  rating     Int     @default(5)
+  isFeatured Boolean @default(false)
+  order      Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  client Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+
+  @@index([clientId])
+  @@map("testimonial")
+}

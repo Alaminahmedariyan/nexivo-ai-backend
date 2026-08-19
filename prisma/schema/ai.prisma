@@ -1,0 +1,91 @@
+model AIConversation {
+  id       String  @id @default(cuid())
+  userId   String?
+  leadId   String?
+  title    String?
+  messages Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  lead Lead? @relation(fields: [leadId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([leadId])
+  @@index([updatedAt])
+
+  @@map("ai_conversation")
+}
+
+
+model AIProposal {
+  id           String          @id @default(cuid())
+  leadId       String?
+  clientId     String?
+  title        String
+  content      String          @db.Text
+  amount       Decimal         @db.Decimal(10, 2)
+  currency     ProjectCurrency @default(USD)
+  status       ProposalStatus  @default(DRAFT)
+  generatedById String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lead        Lead? @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  client      Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  generatedBy User @relation( "ProposalGeneratedBy",  fields: [generatedById],   references: [id],   onDelete: Restrict )
+
+  @@index([leadId])
+  @@index([clientId])
+  @@index([generatedById])
+  @@index([status])
+  @@index([createdAt])
+
+  @@map("ai_proposal")
+}
+
+
+model AIUsageLog {
+  id           String        @id @default(cuid())
+  userId       String?
+  feature      AIFeature
+  promptTokens Int
+  outputTokens Int
+  cost         Decimal?      @db.Decimal(10, 4)
+  status       AIUsageStatus @default(SUCCESS)
+
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([feature])
+  @@index([status])
+  @@index([createdAt])
+
+  @@map("ai_usage_log")
+}
+
+
+model AutomationExecution {
+  id            String                    @id @default(cuid())
+  workflowName  String
+  triggerType   TriggerType               @default(MANUAL)
+  status        AutomationExecutionStatus @default(RUNNING)
+  executionTime Int?
+  startedAt     DateTime                  @default(now())
+  completedAt   DateTime?
+  error         String?                   @db.Text
+  userId        String?
+
+  user User? @relation( fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([workflowName])
+  @@index([userId])
+  @@index([startedAt])
+
+  @@map("automation_execution")
+}

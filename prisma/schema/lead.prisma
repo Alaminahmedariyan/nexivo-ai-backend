@@ -1,0 +1,42 @@
+model Lead {
+  id        String      @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  serviceId String?
+  message   String      @db.Text
+  budget    BudgetRange @default(NOT_SURE)
+  notes     String?     @db.Text // internal sales-team note, not visible to lead
+  status    LeadStatus  @default(NEW)
+  source    LeadSource  @default(OTHER)
+
+  assignedToId String?
+  meetingAt    DateTime?
+  convertedAt  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  service       Service?         @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  assignedTo    User?            @relation("AssignedLeads", fields: [assignedToId], references: [id], onDelete: SetNull)
+  client        Client?
+  proposals     AIProposal[]
+  conversations AIConversation[]
+
+  @@index([status])
+  @@index([assignedToId])
+  @@index([serviceId])
+  @@index([email])
+  @@index([phone])
+  @@map("lead")
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("newsletter_subscriber")
+}
