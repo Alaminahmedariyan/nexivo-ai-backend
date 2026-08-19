@@ -1,5 +1,5 @@
-/// <reference path="../src/lib/types/env.d.ts" />
-/// <reference path="../src/lib/types/express.d.ts" />
+import type {} from "../src/lib/types/env";
+import type {} from "../src/lib/types/express";
 
 import app from "../src/app";
 
