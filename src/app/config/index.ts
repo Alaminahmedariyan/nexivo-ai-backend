@@ -29,10 +29,6 @@ const envSchema = z.object({
   RESEND_API_KEY: z.string().min(1, "RESEND_API_KEY is required."),
   EMAIL_FROM: z.string().email(),
 
-  // Optional — no billing/payment feature exists in this codebase yet.
-  // Made required-fields-optional so the app can actually boot without
-  // needing dummy Stripe credentials. Flip these back to required once a
-  // billing module is added.
   STRIPE_PRODUCT_ID: z.string().optional(),
   STRIPE_SECRET_KEY: z.string().optional(),
   STRIPE_WEBHOOK_SECRET: z.string().optional(),

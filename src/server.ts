@@ -51,17 +51,22 @@ const shutdown = async (signal: string) => {
   }, 10_000).unref();
 };
 
-process.on("SIGTERM", () => shutdown("SIGTERM"));
-process.on("SIGINT", () => shutdown("SIGINT"));
+process.on("SIGTERM", () => {
+  void shutdown("SIGTERM");
+});
+
+process.on("SIGINT", () => {
+  void shutdown("SIGINT");
+});
 
 process.on("unhandledRejection", (reason) => {
   console.error("Unhandled Rejection:", reason);
-  shutdown("unhandledRejection");
+  void shutdown("unhandledRejection");
 });
 
 process.on("uncaughtException", (error) => {
   console.error("Uncaught Exception:", error);
-  shutdown("uncaughtException");
+  void shutdown("uncaughtException");
 });
 
 void main();

@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "tsup",
     "start": "node dist/server.js",
     "seed": "tsx prisma/seed.ts",
     "postinstall": "prisma generate",
@@ -14,7 +14,7 @@
     "migrate:deploy": "prisma migrate deploy",
     "studio": "prisma studio",
     "reset": "prisma migrate reset",
-    "db:setup": "prisma generate && prisma migrate dev && npm run seed",
+    "db:setup": "prisma generate && prisma migrate dev && pnpm run seed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

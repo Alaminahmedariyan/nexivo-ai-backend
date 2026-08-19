@@ -7,6 +7,7 @@ import express, {
   Response,
 } from "express";
 import helmet from "helmet";
+import { toNodeHandler } from "better-auth/node";
 
 import config from "./app/config";
 import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
@@ -15,13 +16,15 @@ import { globalRoutes } from "./app/routes";
 import { paymentController } from "./app/modules/payment/payment.controller";
 import { auth } from "./lib/auth";
 import { prisma } from "./lib/prisma";
-import { toNodeHandler } from "better-auth/node";
 
 const app: Application = express();
 
 app.use(helmet());
 
-// Structured request logging.
+/**
+ * Structured request logging.
+ * Logs method, path, status code, and response time.
+ */
 app.use((req: Request, res: Response, next: NextFunction) => {
   const startedAt = Date.now();
 
@@ -36,6 +39,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+/**
+ * CORS configuration.
+ */
 app.use(
   cors({
     origin: config.app.clientUrl,
@@ -43,28 +49,42 @@ app.use(
   }),
 );
 
-// Stripe webhook must receive the raw request body
-// for signature verification.
-// This route must be registered before express.json().
+/**
+ * Stripe webhook must receive the raw request body
+ * so Stripe signature verification can work correctly.
+ *
+ * IMPORTANT:
+ * This route must be registered before express.json().
+ */
 app.post(
   "/api/v1/payments/webhook",
   express.raw({ type: "application/json" }),
   paymentController.stripeWebhook,
 );
 
-// Better Auth routes.
+/**
+ * Better Auth routes.
+ */
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
-// Parse normal JSON requests.
+/**
+ * Normal JSON request parser.
+ */
 app.use(express.json());
 
-// Parse URL-encoded requests.
+/**
+ * URL-encoded request parser.
+ */
 app.use(express.urlencoded({ extended: true }));
 
-// Parse cookies.
+/**
+ * Cookie parser.
+ */
 app.use(cookieParser());
 
-// Basic health endpoint.
+/**
+ * Root health endpoint.
+ */
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({
     success: true,
@@ -72,7 +92,9 @@ app.get("/", (_req: Request, res: Response) => {
   });
 });
 
-// Database health check.
+/**
+ * Database health check.
+ */
 app.get("/health", async (_req: Request, res: Response) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
@@ -93,13 +115,19 @@ app.get("/health", async (_req: Request, res: Response) => {
   }
 });
 
-// Main API routes.
+/**
+ * Main API routes.
+ */
 app.use("/api/v1", globalRoutes);
 
-// 404 handler.
+/**
+ * 404 handler.
+ */
 app.use(notFound);
 
-// Global error handler.
+/**
+ * Global error handler.
+ */
 app.use(globalErrorHandler);
 
 export default app;
