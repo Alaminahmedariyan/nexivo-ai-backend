@@ -1,5 +1,5 @@
 import { Prisma } from "../../../../generated/prisma/client";
-import { ProjectCurrency, ProjectStatus } from "../../../../generated/prisma/enums";
+import { ProjectCurrency, ProjectStatus } from "../../../../generated/prisma";
 import type { FilterConfig } from "../../query-builder/types";
 
 export const PROJECT_SELECT = {

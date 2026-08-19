@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import AppError from "../../errors/appError";
 import { prisma } from "../../../lib/prisma";
 import { Prisma } from "../../../../generated/prisma/client";
-import type { SettingGroup } from "../../../../generated/prisma/enums";
+import type { SettingGroup } from "../../../../generated/prisma";
 import type { UpsertSettingInput } from "./siteSetting.interface";
 
 const getAllSettings = async (group?: SettingGroup) => {
@@ -46,4 +46,9 @@ const deleteSetting = async (key: string) => {
   await prisma.siteSetting.delete({ where: { key } });
 };
 
-export const siteSettingService = { getAllSettings, getSettingByKey, upsertSetting, deleteSetting };
+export const siteSettingService = {
+  getAllSettings,
+  getSettingByKey,
+  upsertSetting,
+  deleteSetting,
+};

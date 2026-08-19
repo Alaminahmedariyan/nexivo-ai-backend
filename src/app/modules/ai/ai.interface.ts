@@ -4,14 +4,14 @@ import type {
   AutomationExecutionStatus,
   ProjectCurrency,
   TriggerType,
-} from "../../../../generated/prisma/enums";
+} from "../../../../generated/prisma";
 
 // ============================================================
 // AI CONVERSATION
 // ============================================================
 
 export type StartConversationInput = {
-  userId?: string
+  userId?: string;
   leadId?: string;
   title?: string;
   message: string;

@@ -1,7 +1,7 @@
 import type {
   NotificationType,
   NotificationEntityType,
-} from "../../../../generated/prisma/enums";
+} from "../../../../generated/prisma";
 
 export type CreateNotificationInput = {
   userId: string;

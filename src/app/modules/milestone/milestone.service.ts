@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import AppError from "../../errors/appError";
 import { prisma } from "../../../lib/prisma";
 import { Prisma } from "../../../../generated/prisma/client";
-import type { MilestoneStatus } from "../../../../generated/prisma/enums";
+import type { MilestoneStatus } from "../../../../generated/prisma";
 
 import { QueryBuilder } from "../../query-builder";
 
@@ -73,20 +73,17 @@ const getAllMilestones = async (
     throw new AppError(StatusCodes.NOT_FOUND, "Project not found.");
   }
 
-  const milestoneQueryBuilder = new QueryBuilder(
-    prisma.milestone,
-    {
-      searchableFields: MILESTONE_SEARCHABLE_FIELDS,
+  const milestoneQueryBuilder = new QueryBuilder(prisma.milestone, {
+    searchableFields: MILESTONE_SEARCHABLE_FIELDS,
 
-      filterableFields: MILESTONE_FILTERABLE_FIELDS,
+    filterableFields: MILESTONE_FILTERABLE_FIELDS,
 
-      sortableFields: MILESTONE_SORTABLE_FIELDS,
+    sortableFields: MILESTONE_SORTABLE_FIELDS,
 
-      softDelete: false,
+    softDelete: false,
 
-      defaultSortField: MILESTONE_DEFAULT_SORT,
-    },
-  );
+    defaultSortField: MILESTONE_DEFAULT_SORT,
+  });
 
   /*
    * projectId is forced AFTER spreading req.query.
@@ -139,10 +136,7 @@ const getMilestoneById = async (id: string) => {
 // UPDATE
 // ============================================================
 
-const updateMilestone = async (
-  id: string,
-  payload: UpdateMilestoneInput,
-) => {
+const updateMilestone = async (id: string, payload: UpdateMilestoneInput) => {
   const existing = await prisma.milestone.findUnique({
     where: { id },
   });

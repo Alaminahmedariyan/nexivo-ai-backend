@@ -10,7 +10,7 @@ import type {
   LeadStatus,
   BudgetRange,
   LeadSource,
-} from "../../../../generated/prisma/enums";
+} from "../../../../generated/prisma";
 
 import { QueryBuilder } from "../../query-builder";
 
@@ -28,18 +28,13 @@ import {
   LEAD_DEFAULT_SORT,
 } from "./lead.const";
 
-import type {
-  CreateLeadInput,
-  UpdateLeadStatusInput,
-} from "./lead.interface";
+import type { CreateLeadInput, UpdateLeadStatusInput } from "./lead.interface";
 
 // ======================================================
 // CREATE LEAD
 // ======================================================
 
-const createLead = async (
-  payload: CreateLeadInput,
-) => {
+const createLead = async (payload: CreateLeadInput) => {
   // ----------------------------------------------------
   // Validate service if serviceId provided
   // ----------------------------------------------------
@@ -55,10 +50,7 @@ const createLead = async (
     });
 
     if (!service) {
-      throw new AppError(
-        StatusCodes.NOT_FOUND,
-        "Service not found.",
-      );
+      throw new AppError(StatusCodes.NOT_FOUND, "Service not found.");
     }
   }
 
@@ -83,41 +75,27 @@ const createLead = async (
 // QueryBuilder
 // ======================================================
 
-const getAllLeads = async (
-  queryParams: Record<string, unknown>,
-) => {
+const getAllLeads = async (queryParams: Record<string, unknown>) => {
   const leadQuery = new QueryBuilder<
     Prisma.LeadGetPayload<{
       select: typeof LEAD_PUBLIC_SELECT;
     }>,
     Prisma.LeadWhereInput
-  >(
-    prisma.lead,
-    {
-      searchableFields: [
-        ...LEAD_SEARCHABLE_FIELDS,
-      ],
+  >(prisma.lead, {
+    searchableFields: [...LEAD_SEARCHABLE_FIELDS],
 
-      filterableFields: {
-        ...LEAD_FILTERABLE_FIELDS,
-      },
-
-      sortableFields: [
-        ...LEAD_SORTABLE_FIELDS,
-      ],
-
-      selectableFields: Object.keys(
-        LEAD_PUBLIC_SELECT,
-      ),
-
-      defaultSortField:
-        LEAD_DEFAULT_SORT,
+    filterableFields: {
+      ...LEAD_FILTERABLE_FIELDS,
     },
-  );
 
-  const result = await leadQuery.execute(
-    queryParams,
-  );
+    sortableFields: [...LEAD_SORTABLE_FIELDS],
+
+    selectableFields: Object.keys(LEAD_PUBLIC_SELECT),
+
+    defaultSortField: LEAD_DEFAULT_SORT,
+  });
+
+  const result = await leadQuery.execute(queryParams);
 
   return result;
 };
@@ -126,9 +104,7 @@ const getAllLeads = async (
 // GET LEAD BY ID
 // ======================================================
 
-const getLeadById = async (
-  id: string,
-) => {
+const getLeadById = async (id: string) => {
   const lead = await prisma.lead.findUnique({
     where: {
       id,
@@ -152,10 +128,7 @@ const getLeadById = async (
   });
 
   if (!lead) {
-    throw new AppError(
-      StatusCodes.NOT_FOUND,
-      "Lead not found.",
-    );
+    throw new AppError(StatusCodes.NOT_FOUND, "Lead not found.");
   }
 
   return lead;
@@ -174,18 +147,14 @@ const updateLeadStatus = async (
   // Find existing lead
   // ----------------------------------------------------
 
-  const existingLead =
-    await prisma.lead.findUnique({
-      where: {
-        id,
-      },
-    });
+  const existingLead = await prisma.lead.findUnique({
+    where: {
+      id,
+    },
+  });
 
   if (!existingLead) {
-    throw new AppError(
-      StatusCodes.NOT_FOUND,
-      "Lead not found.",
-    );
+    throw new AppError(StatusCodes.NOT_FOUND, "Lead not found.");
   }
 
   // ----------------------------------------------------
@@ -193,23 +162,19 @@ const updateLeadStatus = async (
   // ----------------------------------------------------
 
   if (payload.assignedToId) {
-    const assignedUser =
-      await prisma.user.findUnique({
-        where: {
-          id: payload.assignedToId,
-        },
+    const assignedUser = await prisma.user.findUnique({
+      where: {
+        id: payload.assignedToId,
+      },
 
-        select: {
-          id: true,
-          role: true,
-        },
-      });
+      select: {
+        id: true,
+        role: true,
+      },
+    });
 
     if (!assignedUser) {
-      throw new AppError(
-        StatusCodes.NOT_FOUND,
-        "Assigned user not found.",
-      );
+      throw new AppError(StatusCodes.NOT_FOUND, "Assigned user not found.");
     }
 
     if (
@@ -228,44 +193,38 @@ const updateLeadStatus = async (
   // Determine status transition
   // ----------------------------------------------------
 
-  const isNewlyWon =
-    payload.status === "WON" &&
-    existingLead.status !== "WON";
+  const isNewlyWon = payload.status === "WON" && existingLead.status !== "WON";
 
   // ----------------------------------------------------
   // Update Lead
   // ----------------------------------------------------
 
-  const updatedLead =
-    await prisma.lead.update({
-      where: {
-        id,
-      },
+  const updatedLead = await prisma.lead.update({
+    where: {
+      id,
+    },
 
-      data: {
-        status: payload.status,
+    data: {
+      status: payload.status,
 
-        ...(payload.assignedToId !== undefined && {
-          assignedToId:
-            payload.assignedToId,
-        }),
+      ...(payload.assignedToId !== undefined && {
+        assignedToId: payload.assignedToId,
+      }),
 
-        ...(isNewlyWon && {
-          convertedAt: new Date(),
-        }),
-      },
+      ...(isNewlyWon && {
+        convertedAt: new Date(),
+      }),
+    },
 
-      select: LEAD_PUBLIC_SELECT,
-    });
+    select: LEAD_PUBLIC_SELECT,
+  });
 
   // ----------------------------------------------------
   // Lead -> Client conversion
   // ----------------------------------------------------
 
   if (isNewlyWon) {
-    await clientService.createFromLead(
-      id,
-    );
+    await clientService.createFromLead(id);
   }
 
   // ----------------------------------------------------
@@ -286,8 +245,7 @@ const updateLeadStatus = async (
       to: payload.status,
 
       ...(payload.assignedToId && {
-        assignedToId:
-          payload.assignedToId,
+        assignedToId: payload.assignedToId,
       }),
     },
   });
@@ -298,21 +256,17 @@ const updateLeadStatus = async (
 
   if (payload.assignedToId) {
     await notificationService.createNotification({
-      userId:
-        payload.assignedToId,
+      userId: payload.assignedToId,
 
-      title:
-        "Lead assigned to you",
+      title: "Lead assigned to you",
 
-      message:
-        `Lead "${updatedLead.name}" was assigned to you.`,
+      message: `Lead "${updatedLead.name}" was assigned to you.`,
 
       type: "LEAD",
 
       entityType: "LEAD",
 
-      entityId:
-        updatedLead.id,
+      entityId: updatedLead.id,
     });
   }
 

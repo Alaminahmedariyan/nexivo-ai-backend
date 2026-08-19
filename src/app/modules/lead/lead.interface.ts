@@ -2,7 +2,7 @@ import type {
   BudgetRange,
   LeadSource,
   LeadStatus,
-} from "../../../../generated/prisma/enums";
+} from "../../../../generated/prisma";
 
 export type CreateLeadInput = {
   name: string;

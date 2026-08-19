@@ -4,7 +4,7 @@ import AppError from "../../errors/appError";
 import { prisma } from "../../../lib/prisma";
 
 import { Prisma } from "../../../../generated/prisma/client";
-import { FileCategory } from "../../../../generated/prisma/enums";
+import { FileCategory } from "../../../../generated/prisma";
 
 import { fileUploader } from "../../config/cloudinary";
 

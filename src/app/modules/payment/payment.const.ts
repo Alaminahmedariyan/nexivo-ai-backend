@@ -1,5 +1,5 @@
 import { Prisma } from "../../../../generated/prisma/client";
-import { PaymentMethod, PaymentStatus } from "../../../../generated/prisma/enums";
+import { PaymentMethod, PaymentStatus } from "../../../../generated/prisma";
 import type { FilterConfig } from "../../query-builder/types";
 
 export const PAYMENT_SELECT = {
@@ -25,5 +25,9 @@ export const PAYMENT_FILTERABLE_FIELDS: Record<string, FilterConfig> = {
   createdAt: "date",
 };
 
-export const PAYMENT_SORTABLE_FIELDS = ["createdAt", "amount", "paidAt"] as const;
+export const PAYMENT_SORTABLE_FIELDS = [
+  "createdAt",
+  "amount",
+  "paidAt",
+] as const;
 export const PAYMENT_DEFAULT_SORT = "createdAt";

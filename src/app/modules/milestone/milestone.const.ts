@@ -1,9 +1,6 @@
-import { MilestoneStatus } from "../../../../generated/prisma/enums";
+import { MilestoneStatus } from "../../../../generated/prisma";
 
-export const MILESTONE_SEARCHABLE_FIELDS = [
-  "title",
-  "description",
-] as string[];
+export const MILESTONE_SEARCHABLE_FIELDS = ["title", "description"] as string[];
 
 export const MILESTONE_FILTERABLE_FIELDS = {
   projectId: "string",

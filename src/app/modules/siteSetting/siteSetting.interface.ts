@@ -1,4 +1,4 @@
-import type { SettingGroup } from "../../../../generated/prisma/enums";
+import type { SettingGroup } from "../../../../generated/prisma";
 
 export type UpsertSettingInput = {
   key: string;

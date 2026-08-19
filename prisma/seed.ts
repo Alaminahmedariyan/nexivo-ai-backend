@@ -1,6 +1,6 @@
 import { hashPassword } from "better-auth/crypto";
 import { prisma } from "../src/lib/prisma";
-import { UserRole } from "../generated/prisma/enums";
+import { UserRole } from "../generated/prisma";
 
 async function seedSuperAdmin() {
   const email = process.env.SUPER_ADMIN_EMAIL!;
@@ -8,7 +8,9 @@ async function seedSuperAdmin() {
   const name = process.env.SUPER_ADMIN_NAME ?? "Super Admin";
 
   if (!email || !password) {
-    throw new Error("SUPER_ADMIN_EMAIL and SUPER_ADMIN_PASSWORD must be defined in .env");
+    throw new Error(
+      "SUPER_ADMIN_EMAIL and SUPER_ADMIN_PASSWORD must be defined in .env",
+    );
   }
 
   const hashedPassword = await hashPassword(password);
@@ -70,13 +72,15 @@ async function seedServices() {
     {
       title: "Web Development",
       slug: "web-development",
-      description: "Custom websites and web applications built for performance and scale.",
+      description:
+        "Custom websites and web applications built for performance and scale.",
       order: 1,
     },
     {
       title: "AI Automation",
       slug: "ai-automation",
-      description: "AI-powered workflow automation and chatbots tailored to your business.",
+      description:
+        "AI-powered workflow automation and chatbots tailored to your business.",
       order: 2,
     },
     {
@@ -101,8 +105,16 @@ async function seedServices() {
 async function seedSiteSettings() {
   const settings = [
     { key: "companyName", value: "Nexivo AI", group: "GENERAL" as const },
-    { key: "contactEmail", value: "hello@nexivo.ai", group: "CONTACT" as const },
-    { key: "seoTitle", value: "Nexivo AI — AI-Powered Digital Agency", group: "SEO" as const },
+    {
+      key: "contactEmail",
+      value: "hello@nexivo.ai",
+      group: "CONTACT" as const,
+    },
+    {
+      key: "seoTitle",
+      value: "Nexivo AI — AI-Powered Digital Agency",
+      group: "SEO" as const,
+    },
   ];
 
   for (const setting of settings) {

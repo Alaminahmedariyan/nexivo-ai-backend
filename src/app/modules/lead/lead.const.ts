@@ -2,7 +2,7 @@ import {
   LeadStatus,
   BudgetRange,
   LeadSource,
-} from "../../../../generated/prisma/enums";
+} from "../../../../generated/prisma";
 
 export const LEAD_PUBLIC_SELECT = {
   id: true,

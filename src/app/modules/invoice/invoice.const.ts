@@ -1,5 +1,5 @@
 import { Prisma } from "../../../../generated/prisma/client";
-import { InvoiceStatus, ProjectCurrency } from "../../../../generated/prisma/enums";
+import { InvoiceStatus, ProjectCurrency } from "../../../../generated/prisma";
 import type { FilterConfig } from "../../query-builder/types";
 
 export const INVOICE_SELECT = {

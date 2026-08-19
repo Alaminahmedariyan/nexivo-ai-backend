@@ -1,4 +1,4 @@
-import type { UserRole } from "../generated/prisma/enums";
+import type { UserRole } from "../generated/prisma";
 
 declare global {
   namespace Express {

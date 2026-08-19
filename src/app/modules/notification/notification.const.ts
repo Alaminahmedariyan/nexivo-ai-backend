@@ -1,4 +1,7 @@
-import { NotificationType, NotificationEntityType } from "../../../../generated/prisma/enums";
+import {
+  NotificationType,
+  NotificationEntityType,
+} from "../../../../generated/prisma";
 
 export const NOTIFICATION_SELECT = {
   id: true,
@@ -14,10 +17,7 @@ export const NOTIFICATION_SELECT = {
   createdAt: true,
 } as const;
 
-export const NOTIFICATION_SEARCHABLE_FIELDS = [
-  "title",
-  "message",
-] as const;
+export const NOTIFICATION_SEARCHABLE_FIELDS = ["title", "message"] as const;
 
 export const NOTIFICATION_FILTERABLE_FIELDS = {
   userId: "string",

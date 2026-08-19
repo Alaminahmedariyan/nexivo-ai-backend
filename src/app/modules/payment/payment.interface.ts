@@ -1,4 +1,4 @@
-import type { PaymentMethod } from "../../../../generated/prisma/enums";
+import type { PaymentMethod } from "../../../../generated/prisma";
 
 export type RecordManualPaymentInput = {
   amount: number;

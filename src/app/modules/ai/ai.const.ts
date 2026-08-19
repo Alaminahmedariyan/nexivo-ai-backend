@@ -7,7 +7,7 @@ import {
   ProjectCurrency,
   ProposalStatus,
   TriggerType,
-} from "../../../../generated/prisma/enums";
+} from "../../../../generated/prisma";
 
 import type { FilterConfig } from "../../query-builder/types";
 
@@ -25,14 +25,9 @@ export const AI_CONVERSATION_SELECT = {
   updatedAt: true,
 } satisfies Prisma.AIConversationSelect;
 
-export const AI_CONVERSATION_SEARCHABLE_FIELDS = [
-  "title",
-] as const;
+export const AI_CONVERSATION_SEARCHABLE_FIELDS = ["title"] as const;
 
-export const AI_CONVERSATION_FILTERABLE_FIELDS: Record<
-  string,
-  FilterConfig
-> = {
+export const AI_CONVERSATION_FILTERABLE_FIELDS: Record<string, FilterConfig> = {
   userId: "string",
   leadId: "string",
   createdAt: "date",
@@ -64,15 +59,9 @@ export const AI_PROPOSAL_SELECT = {
   updatedAt: true,
 } satisfies Prisma.AIProposalSelect;
 
-export const AI_PROPOSAL_SEARCHABLE_FIELDS = [
-  "title",
-  "content",
-] as const;
+export const AI_PROPOSAL_SEARCHABLE_FIELDS = ["title", "content"] as const;
 
-export const AI_PROPOSAL_FILTERABLE_FIELDS: Record<
-  string,
-  FilterConfig
-> = {
+export const AI_PROPOSAL_FILTERABLE_FIELDS: Record<string, FilterConfig> = {
   leadId: "string",
 
   clientId: "string",
@@ -119,10 +108,7 @@ export const AI_USAGE_LOG_SELECT = {
 
 export const AI_USAGE_LOG_SEARCHABLE_FIELDS: string[] = [];
 
-export const AI_USAGE_LOG_FILTERABLE_FIELDS: Record<
-  string,
-  FilterConfig
-> = {
+export const AI_USAGE_LOG_FILTERABLE_FIELDS: Record<string, FilterConfig> = {
   userId: "string",
 
   feature: {
@@ -163,9 +149,7 @@ export const AUTOMATION_EXECUTION_SELECT = {
   userId: true,
 } satisfies Prisma.AutomationExecutionSelect;
 
-export const AUTOMATION_EXECUTION_SEARCHABLE_FIELDS = [
-  "workflowName",
-] as const;
+export const AUTOMATION_EXECUTION_SEARCHABLE_FIELDS = ["workflowName"] as const;
 
 export const AUTOMATION_EXECUTION_FILTERABLE_FIELDS: Record<
   string,

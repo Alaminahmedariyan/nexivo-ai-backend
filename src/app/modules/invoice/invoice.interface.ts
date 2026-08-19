@@ -1,4 +1,4 @@
-import type { ProjectCurrency } from "../../../../generated/prisma/enums";
+import type { ProjectCurrency } from "../../../../generated/prisma";
 
 export type InvoiceItemInput = {
   description: string;

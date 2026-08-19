@@ -2,7 +2,7 @@ import type {
   ProjectCurrency,
   ProjectMemberRole,
   ProjectStatus,
-} from "../../../../generated/prisma/enums";
+} from "../../../../generated/prisma";
 
 export interface CreateProjectInput {
   clientId: string;
