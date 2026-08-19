@@ -1,680 +1,466 @@
-# 🚀 Nexivo AI Backend
+# ⚡ Nexivo AI Backend
 
-**Nexivo AI Backend** is a scalable, enterprise-grade backend API for an **AI Agency SaaS Platform**. It provides complete agency management including authentication, lead management, client and project management, AI conversations, proposal generation, workflow automation, invoicing, Stripe payments, notifications, portfolio management, API key integration, and activity logging.
+### AI-Powered Agency Management & SaaS Backend
 
-Built with **Express 5, TypeScript, Prisma 7, PostgreSQL, Better Auth, Zod, Stripe, Cloudinary, and Resend**, the backend follows a clean modular architecture designed for maintainability and scalability.
+Nexivo AI is a scalable backend platform for modern digital agencies, combining **lead management, project management, AI workflows, proposals, invoicing, payments, notifications, and integrations** into a unified SaaS architecture.
+
+Built with **TypeScript, Express 5, Prisma 7, PostgreSQL, Better Auth, Zod, Stripe, Cloudinary, and Resend**, the system is designed around a modular architecture that is easy to maintain, extend, and scale.
 
 ---
 
-# 📌 Features
+## ✨ Highlights
 
-## 🔐 Authentication & Authorization
+* 🔐 Secure authentication with **Better Auth**
+* 👥 Role-based access control
+* 🧩 Modular service architecture
+* 📩 Lead & CRM management
+* 🏢 Client & project management
+* 📊 Milestones, timelines & project files
+* 🤖 AI conversations & AI proposal generation
+* ⚙️ Workflow automation tracking
+* 💰 Invoice & Stripe payment management
+* 🔔 Real-time notification infrastructure
+* 🔑 API key management
+* 📝 Activity & audit logging
+* ☁️ Cloudinary file storage
+* 📧 Resend email integration
+* ✅ Zod-powered request validation
+* 🚦 Pagination, filtering & sorting
+* 🛡️ Helmet, CORS & rate limiting
 
-* Email & Password authentication with Better Auth
-* Role-based access control
-* User session management
-* Admin, Team Member, Client, and User roles
-* Two-factor authentication schema support
-* Secure account management
-* User activation and role management
+---
 
-## 👥 User Management
+# 🏗 Architecture
 
-* Get authenticated user profile
-* Get all users with pagination
-* Get user by ID
-* Update user role
-* Activate or deactivate users
-* Admin-controlled user management
+```text
+Client
+   │
+   ▼
+Express API
+   │
+   ├── Authentication
+   ├── Authorization
+   ├── Validation
+   ├── Upload
+   └── Error Handling
+          │
+          ▼
+     Controllers
+          │
+          ▼
+       Services
+          │
+    ┌─────┼───────────────┐
+    ▼     ▼               ▼
+ Prisma Stripe        Cloudinary
+    │
+    ▼
+PostgreSQL
+```
 
-## 🔑 API Key Management
-
-* Create API keys
-* View all API keys
-* Revoke API keys
-* Secure hashed API key storage
-* Prefix-based API identification
-* Integration-ready service authentication
-
-## 🏢 Agency Management
-
-* Create services
-* Update services
-* Delete services
-* Public service browsing
-* Service packages
-* Package pricing and features
-* Portfolio management
-* Portfolio image management
-* Technology management
-* Testimonials
-* Site settings
-
-## 📩 Lead Management
-
-* Public contact form
-* Public quote form
-* Lead creation
-* Lead assignment
-* Lead status management
-* Lead conversion to client
-* Meeting scheduling support
-* Budget and source tracking
-
-## 📰 Newsletter
-
-* Newsletter subscription
-* Newsletter unsubscription
-* Subscriber management
-* Active subscriber listing
-
-## 🤝 Client Management
-
-* Create clients
-* Convert leads into clients
-* Update client information
-* Client listing with pagination
-* Soft delete support
-
-## 📁 Project Management
-
-* Create projects
-* Update projects
-* Delete projects
-* Project members
-* Milestones
-* Timeline updates
-* Project files
-* File categorization
-* Client-project relationship
-
-## 🤖 AI Module
-
-* AI conversations
-* Conversation messages
-* AI proposal generation
-* Proposal status management
-* Proposal acceptance
-* AI usage logging
-* Workflow automation execution
-* Automation history
-
-## 💰 Billing & Payments
-
-* Invoice creation
-* Invoice status management
-* Stripe Checkout Session
-* Payment records
-* Payment history
-* Stripe webhook support
-* Refund-ready payment structure
-
-## 🔔 Notifications
-
-* Personal notifications
-* Unread notification count
-* Mark notification as read
-* Mark all notifications as read
-
-## 📊 Activity Logs
-
-* User activity tracking
-* Entity audit logs
-* Admin and Team monitoring
-* QueryBuilder pagination support
+The project follows a **Controller → Service → Prisma** pattern with reusable middleware and module-level separation.
 
 ---
 
 # 🛠 Tech Stack
 
-| Technology   | Usage                 |
-| ------------ | --------------------- |
-| Node.js      | Runtime               |
-| Express.js 5 | Backend Framework     |
-| TypeScript   | Programming Language  |
-| PostgreSQL   | Database              |
-| Prisma 7     | ORM                   |
-| Better Auth  | Authentication        |
-| Zod 4        | Request Validation    |
-| Stripe       | Payment Gateway       |
-| Cloudinary   | File Storage          |
-| Multer       | File Upload           |
-| Resend       | Email Service         |
-| Helmet       | Security Headers      |
-| CORS         | Cross-Origin Security |
-| Rate Limit   | API Protection        |
-| tsx          | Development Runtime   |
-| tsup         | Production Build      |
+| Layer          | Technology         |
+| -------------- | ------------------ |
+| Runtime        | Node.js            |
+| Language       | TypeScript         |
+| Framework      | Express 5          |
+| Database       | PostgreSQL         |
+| ORM            | Prisma 7           |
+| Authentication | Better Auth        |
+| Validation     | Zod 4              |
+| Payments       | Stripe             |
+| File Storage   | Cloudinary         |
+| Uploads        | Multer             |
+| Email          | Resend             |
+| Security       | Helmet             |
+| CORS           | CORS Middleware    |
+| Rate Limiting  | express-rate-limit |
+| Build          | tsup               |
+| Development    | tsx                |
 
 ---
 
-# 📁 Project Architecture
+# 📦 Core Modules
 
-```text
-nexivo-ai-backend/
-│
-├── prisma/
-│   ├── schema.prisma
-│   ├── seed.ts
-│   └── migrations/
-│
-├── generated/
-│   └── prisma/
-│
-├── src/
-│   ├── app/
-│   │   ├── config/
-│   │   ├── errors/
-│   │   ├── middlewares/
-│   │   ├── modules/
-│   │   │   ├── auth/
-│   │   │   ├── user/
-│   │   │   ├── apiKey/
-│   │   │   ├── service/
-│   │   │   ├── technology/
-│   │   │   ├── portfolio/
-│   │   │   ├── testimonial/
-│   │   │   ├── siteSetting/
-│   │   │   ├── newsletter/
-│   │   │   ├── lead/
-│   │   │   ├── client/
-│   │   │   ├── project/
-│   │   │   ├── invoice/
-│   │   │   ├── payment/
-│   │   │   ├── ai/
-│   │   │   ├── notification/
-│   │   │   └── activityLog/
-│   │   │
-│   │   ├── routes/
-│   │   └── utils/
-│   │
-│   ├── lib/
-│   ├── types/
-│   ├── app.ts
-│   └── server.ts
-│
-├── package.json
-├── tsconfig.json
-├── tsup.config.ts
-├── prisma.config.ts
-└── README.md
-```
+## 🔐 Authentication
 
----
+Better Auth powers the authentication layer with support for:
 
-# 🗄 Database Design
-
-The database is designed around eight major domains.
-
-## Authentication
-
-* User
-* Session
-* Account
+* Email authentication
+* Sessions
+* Accounts
 * Verification
-* TwoFactor
+* Two-factor authentication
+* User roles
+* User activation state
 
-## Agency
+Supported roles:
 
-* Service
-* ServicePackage
-* Portfolio
-* PortfolioImage
-* Technology
-* PortfolioTechnology
-* SiteSetting
-* Testimonial
+```text
+SUPER_ADMIN
+ADMIN
+TEAM_MEMBER
+CLIENT
+USER
+```
 
-## Lead Management
-
-* Lead
-* NewsletterSubscriber
-
-## Client & Project
-
-* Client
-* Project
-* ProjectMember
-* Milestone
-* Timeline
-* ProjectFile
-
-## AI Features
-
-* AIConversation
-* AIProposal
-* AIUsageLog
-* AutomationExecution
-
-## System
-
-* Notification
-* ActivityLog
-
-## Billing
-
-* Invoice
-* Payment
-* StripeWebhookEvent
-
-## Integration
-
-* ApiKey
+The database schema is designed around Better Auth-compatible core tables including `User`, `Session`, `Account`, `Verification`, and `TwoFactor`.
 
 ---
 
-# 👤 User Roles
+## 👥 User Management
 
-| Role        | Description                |
-| ----------- | -------------------------- |
-| SUPER_ADMIN | Full system access         |
-| ADMIN       | Administrative access      |
-| TEAM_MEMBER | Agency team access         |
-| CLIENT      | Client portal access       |
-| USER        | Default authenticated user |
+Administrative user management includes:
+
+```http
+GET    /api/v1/users
+GET    /api/v1/users/me
+GET    /api/v1/users/:id
+PATCH  /api/v1/users/:id/role
+PATCH  /api/v1/users/:id/status
+```
+
+Supports pagination, sorting and authenticated access.
 
 ---
 
-# 🔄 API Architecture Flow
+## 🔑 API Keys
 
-```mermaid
-graph TD
-
-Client --> Express
-
-Express --> AuthMiddleware
-Express --> ValidationMiddleware
-Express --> UploadMiddleware
-
-AuthMiddleware --> Controller
-ValidationMiddleware --> Controller
-UploadMiddleware --> Controller
-
-Controller --> Service
-
-Service --> Prisma
-Prisma --> PostgreSQL
-
-Service --> Stripe
-Service --> Cloudinary
-Service --> Resend
-Service --> BetterAuth
+```http
+POST   /api/v1/api-keys
+GET    /api/v1/api-keys
+DELETE /api/v1/api-keys/:id
 ```
+
+API keys are stored using hashed values, allowing Nexivo to safely support service-to-service integrations.
 
 ---
 
-# 📡 API Modules
+## 🏢 Agency Management
 
-All primary APIs use:
+### Services
 
-```text
-http://localhost:5000/api/v1
+```http
+GET    /api/v1/services
+POST   /api/v1/services
+GET    /api/v1/services/:id
+PATCH  /api/v1/services/:id
+DELETE /api/v1/services/:id
 ```
 
-Authentication uses:
+### Packages
 
-```text
-http://localhost:5000/api/auth
+```http
+POST   /api/v1/services/:serviceId/packages
+PATCH  /api/v1/services/packages/:id
+DELETE /api/v1/services/packages/:id
 ```
 
-## 01. Authentication
+### Technologies
 
-```text
-POST   /sign-up/email
-POST   /sign-in/email
-GET    /get-session
+```http
+GET    /api/v1/technologies
+POST   /api/v1/technologies
+PATCH  /api/v1/technologies/:id
+DELETE /api/v1/technologies/:id
 ```
 
-Supports:
+### Portfolio
 
-* Admin registration
-* Team Member registration
-* User registration
-* Login
-* Session retrieval
+```http
+GET    /api/v1/portfolios
+POST   /api/v1/portfolios
+GET    /api/v1/portfolios/:id
+PATCH  /api/v1/portfolios/:id
+DELETE /api/v1/portfolios/:id
+```
+
+Portfolio images are managed independently and can be attached or removed without modifying the portfolio itself.
 
 ---
 
-## 02. User Management
+# 📈 Lead Management
+
+Nexivo supports a complete lead lifecycle:
 
 ```text
-GET    /users
-GET    /users/me
-GET    /users/:id
-PATCH  /users/:id/role
-PATCH  /users/:id/status
+NEW
+  ↓
+CONTACTED
+  ↓
+QUOTED
+  ↓
+MEETING_SCHEDULED
+  ↓
+NEGOTIATION
+  ↓
+WON / LOST
 ```
+
+The lead model supports:
+
+* Contact information
+* Company
+* Service association
+* Budget range
+* Source
+* Assignment
+* Meeting time
+* Conversion tracking
+
+Lead management is directly connected with clients, proposals and AI conversations.
 
 ---
 
-## 03. API Keys
+# 🤝 Client & Project Management
 
-```text
-POST    /api-keys
-GET     /api-keys
-DELETE  /api-keys/:id
-```
+Projects are connected to clients and can contain:
 
----
+* Team members
+* Milestones
+* Timeline updates
+* Project files
+* Invoices
 
-## 04. Services & Packages
+### Project API
 
-```text
-GET     /services
-POST    /services
-GET     /services/:id
-PATCH   /services/:id
-DELETE  /services/:id
-
-POST    /services/:id/packages
-PATCH   /services/packages/:id
-DELETE  /services/packages/:id
-```
-
----
-
-## 05. Technologies
-
-```text
-GET     /technologies
-POST    /technologies
-PATCH   /technologies/:id
-DELETE  /technologies/:id
-```
-
----
-
-## 06. Portfolios
-
-```text
-GET     /portfolios
-POST    /portfolios
-GET     /portfolios/:id
-PATCH   /portfolios/:id
-DELETE  /portfolios/:id
-
-POST    /portfolios/:id/images
-DELETE  /portfolios/images/:imageId
-```
-
----
-
-## 07. Testimonials
-
-```text
-GET     /testimonials
-POST    /testimonials
-PATCH   /testimonials/:id
-DELETE  /testimonials/:id
-```
-
----
-
-## 08. Site Settings
-
-```text
-GET     /site-settings
-POST    /site-settings
-PATCH   /site-settings/:key
-DELETE  /site-settings/:key
-```
-
----
-
-## 09. Newsletter
-
-```text
-POST   /newsletter/subscribe
-POST   /newsletter/unsubscribe
-GET    /newsletter
-```
-
----
-
-## 10. Leads
-
-```text
-POST    /leads
-GET     /leads
-GET     /leads/:id
-PATCH   /leads/:id
-DELETE  /leads/:id
-
-POST    /leads/:id/convert
-```
-
----
-
-## 11. Clients
-
-```text
-POST    /clients
-GET     /clients
-GET     /clients/:id
-PATCH   /clients/:id
-DELETE  /clients/:id
-```
-
----
-
-## 12. Projects
-
-```text
-POST    /projects
-GET     /projects
-GET     /projects/:id
-PATCH   /projects/:id
-DELETE  /projects/:id
+```http
+POST   /api/v1/projects
+GET    /api/v1/projects
+GET    /api/v1/projects/:id
+PATCH  /api/v1/projects/:id
+DELETE /api/v1/projects/:id
 ```
 
 ### Milestones
 
-```text
-POST    /projects/:id/milestones
-PATCH   /projects/milestones/:id
-DELETE  /projects/milestones/:id
+```http
+POST   /api/v1/projects/:id/milestones
+PATCH  /api/v1/projects/milestones/:id
+DELETE /api/v1/projects/milestones/:id
 ```
 
 ### Timelines
 
-```text
-POST    /projects/:id/timelines
-PATCH   /projects/timelines/:id
-DELETE  /projects/timelines/:id
+```http
+POST   /api/v1/projects/:id/timelines
+PATCH  /api/v1/projects/timelines/:id
+DELETE /api/v1/projects/timelines/:id
 ```
 
 ### Project Files
 
-```text
-POST    /projects/:id/files
-GET     /projects/:id/files
-DELETE  /project-files/:id
+```http
+POST   /api/v1/projects/:id/files
+GET    /api/v1/projects/:id/files
+DELETE /api/v1/project-files/:id
 ```
 
 ---
 
-## 13. Invoices
+# 🤖 AI Infrastructure
+
+AI is a first-class module inside Nexivo.
+
+## AI Conversations
+
+```http
+POST   /api/v1/ai/conversations
+POST   /api/v1/ai/conversations/:id/messages
+GET    /api/v1/ai/conversations
+GET    /api/v1/ai/conversations/:id
+DELETE /api/v1/ai/conversations/:id
+```
+
+## AI Proposals
+
+```http
+POST   /api/v1/ai/proposals
+GET    /api/v1/ai/proposals
+GET    /api/v1/ai/proposals/:id
+PATCH  /api/v1/ai/proposals/:id/status
+POST   /api/v1/ai/proposals/:id/accept
+```
+
+## AI Usage & Automation
+
+```http
+GET  /api/v1/ai/usage-logs
+
+POST /api/v1/ai/automation-executions
+GET  /api/v1/ai/automation-executions
+```
+
+Supported AI capabilities:
 
 ```text
-POST    /invoices
-GET     /invoices
-GET     /invoices/:id
-PATCH   /invoices/:id/status
-DELETE  /invoices/:id
+AI_CHAT
+PROPOSAL_GENERATOR
+WORKFLOW_AUTOMATION
+QUOTE_ESTIMATOR
 ```
 
 ---
 
-## 14. Payments
+# 💳 Billing & Payments
+
+Nexivo provides an invoice-driven payment architecture.
+
+### Invoice
+
+```http
+POST   /api/v1/invoices
+GET    /api/v1/invoices
+GET    /api/v1/invoices/:id
+PATCH  /api/v1/invoices/:id/status
+DELETE /api/v1/invoices/:id
+```
+
+### Stripe
+
+```http
+POST /api/v1/payments/create-checkout-session
+GET  /api/v1/payments
+GET  /api/v1/payments/:id
+POST /api/v1/payments/webhook
+```
+
+### Payment Flow
 
 ```text
-POST   /payments/create-checkout-session
-GET    /payments
-GET    /payments/:id
-POST   /payments/webhook
+Invoice
+   ↓
+Checkout Session
+   ↓
+Stripe
+   ↓
+Webhook
+   ↓
+Payment
+   ↓
+Invoice Status
+```
+
+The database also includes a dedicated `StripeWebhookEvent` table to prevent duplicate webhook processing.
+
+---
+
+# 🔔 Notifications
+
+```http
+GET   /api/v1/notifications
+GET   /api/v1/notifications/unread-count
+PATCH /api/v1/notifications/:id/read
+PATCH /api/v1/notifications/read-all
+```
+
+Notifications can be associated with:
+
+```text
+LEAD
+PROJECT
+MILESTONE
+CLIENT
+PROPOSAL
 ```
 
 ---
 
-## 15. AI Module
+# 📝 Activity & Audit Logs
 
-### AI Conversations
-
-```text
-POST   /ai/conversations
-POST   /ai/conversations/:id/messages
-GET    /ai/conversations/:id
-GET    /ai/conversations
+```http
+GET /api/v1/activity-logs
 ```
 
-### AI Proposals
+Activity logs provide an audit trail with:
 
-```text
-POST   /ai/proposals
-GET    /ai/proposals
-GET    /ai/proposals/:id
-PATCH  /ai/proposals/:id/status
-POST   /ai/proposals/:id/accept
-```
-
-### AI Usage
-
-```text
-GET    /ai/usage-logs
-```
-
-### Workflow Automation
-
-```text
-POST   /ai/automation-executions
-GET    /ai/automation-executions
-```
+* User
+* Action
+* Entity type
+* Entity ID
+* Metadata
+* Timestamp
 
 ---
 
-## 16. Notifications
+# ✅ Validation
+
+All request payloads are validated before reaching application services.
 
 ```text
-GET    /notifications
-GET    /notifications/unread-count
-PATCH  /notifications/:id/read
-PATCH  /notifications/read-all
-```
-
----
-
-## 17. Activity Logs
-
-```text
-GET    /activity-logs
-```
-
-Supports pagination, sorting, and filtering.
-
----
-
-# ✔ Validation
-
-All incoming requests are validated using **Zod** before reaching controllers.
-
-Example flow:
-
-```text
-Client Request
-
-        │
-
-        ▼
-
+Request
+   ↓
 Validation Middleware
-
-        │
-
-        ▼
-
+   ↓
 Zod Schema
-
-        │
-
-        ▼
-
+   ↓
 Controller
-
-        │
-
-        ▼
-
+   ↓
 Service
+   ↓
+Prisma
 ```
 
-The project uses `parseAsync()` for asynchronous schema validation.
+This keeps controllers clean and ensures consistent input validation.
 
 ---
 
-# 📦 Standard Response Format
+# 📊 Pagination
 
-## Success Response
+List endpoints support:
 
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "Request completed successfully",
-  "data": {}
-}
+```text
+page
+limit
+sortBy
+sortOrder
 ```
-
-## Paginated Response
-
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "message": "Resources retrieved successfully",
-  "data": [],
-  "meta": {
-    "page": 1,
-    "limit": 10,
-    "total": 100
-  }
-}
-```
-
-## Error Response
-
-```json
-{
-  "success": false,
-  "statusCode": 400,
-  "message": "Validation failed",
-  "details": []
-}
-```
-
----
-
-# 🔎 Pagination
-
-Supported query parameters:
-
-| Parameter | Type     | Default   |
-| --------- | -------- | --------- |
-| page      | number   | 1         |
-| limit     | number   | 10        |
-| sortBy    | string   | createdAt |
-| sortOrder | asc/desc | desc      |
 
 Example:
 
-```text
-GET /users?page=1&limit=10&sortBy=createdAt&sortOrder=desc
+```http
+GET /api/v1/projects?page=1&limit=10&sortBy=createdAt&sortOrder=desc
 ```
 
 ---
 
-# ⚙ Environment Variables
+# 📡 API Structure
 
-Create a `.env` file.
+The Postman test suite is organized around **18 backend modules**, including:
+
+```text
+01  Auth
+02  User Management
+03  API Keys
+04  Services & Packages
+05  Technologies
+06  Portfolios
+07  Testimonials
+08  Site Settings
+09  Newsletter
+10  Leads
+11  Clients
+12  Projects & Sub-resources
+13  Invoices
+14  Payments
+15  AI Module
+16  Notifications
+17  Activity Logs
+18  Security Tests
+```
+
+These modules are covered by the project's standard Postman collection.
+
+---
+
+# 🌍 Environment
+
+Create a `.env` file in the project root.
 
 ```env
 NODE_ENV=development
@@ -700,50 +486,60 @@ RESEND_API_KEY=
 EMAIL_FROM=
 ```
 
-> Never commit your `.env` file to GitHub.
+> Keep production secrets out of GitHub.
 
 ---
 
-# 🚀 Installation
+# 🚀 Getting Started
 
-## Clone Repository
+## 1. Clone
 
 ```bash
-git clone <your-repository-url>
+git clone <repository-url>
 cd nexivo-ai-backend
 ```
 
-## Install Dependencies
+## 2. Install
 
 ```bash
 pnpm install
 ```
 
-## Generate Prisma Client
+## 3. Configure Environment
+
+Create:
+
+```text
+.env
+```
+
+and add the required credentials.
+
+## 4. Generate Prisma Client
 
 ```bash
 pnpm run generate
 ```
 
-## Run Migration
+## 5. Run Migration
 
 ```bash
 pnpm run migrate
 ```
 
-## Seed Database
+## 6. Seed Database
 
 ```bash
 pnpm run seed
 ```
 
-## Start Development Server
+## 7. Start Development Server
 
 ```bash
 pnpm run dev
 ```
 
-Server will run at:
+API:
 
 ```text
 http://localhost:5000
@@ -751,28 +547,28 @@ http://localhost:5000
 
 ---
 
-# 🧪 Available Scripts
+# 🧰 Scripts
 
-| Command                 | Description                  |
-| ----------------------- | ---------------------------- |
-| pnpm run dev            | Start development server     |
-| pnpm run build          | Build production project     |
-| pnpm start              | Start production server      |
-| pnpm run generate       | Generate Prisma Client       |
-| pnpm run migrate        | Run development migration    |
-| pnpm run migrate:deploy | Deploy production migrations |
-| pnpm run seed           | Seed database                |
-| pnpm run studio         | Open Prisma Studio           |
-| pnpm run reset          | Reset database               |
-| pnpm run db:setup       | Generate + Migrate + Seed    |
+```bash
+pnpm run dev
+pnpm run build
+pnpm start
+pnpm run seed
+pnpm run generate
+pnpm run migrate
+pnpm run migrate:deploy
+pnpm run studio
+pnpm run reset
+pnpm run db:setup
+```
 
 ---
 
-# 🧪 Postman Testing
+# 🧪 Postman
 
-The project includes a complete **Postman Standard Test Suite** covering all backend modules.
+The project includes a standardized Postman environment for local testing.
 
-Environment variables include:
+Core environment variables include:
 
 ```text
 baseUrl
@@ -781,120 +577,76 @@ authUrl
 adminToken
 teamMemberToken
 userToken
+apiKey
 
 capturedUserId
 capturedLeadId
 capturedClientId
 capturedProjectId
 capturedMilestoneId
+capturedTimelineId
+capturedProjectFileId
+capturedServiceId
+capturedPackageId
+capturedTechnologyId
+capturedPortfolioId
+capturedPortfolioImageId
+capturedTestimonialId
 capturedInvoiceId
 capturedPaymentId
+capturedApiKeyId
+capturedNotificationId
 capturedAiConversationId
 capturedAiProposalId
+capturedAutomationExecutionId
 ```
 
-Import both:
-
-* Postman Collection
-* Postman Environment
-
-Then execute requests module by module.
+The collection automatically stores generated IDs and tokens between requests, making module-by-module testing easier.
 
 ---
 
 # 🔐 Security
 
-* Better Auth authentication
+Nexivo is designed with security in mind:
+
+* Better Auth based authentication
 * Role-based authorization
+* Request validation
 * Helmet security headers
 * CORS protection
 * Rate limiting
-* Zod request validation
 * Secure API key hashing
 * Stripe webhook verification
-* Soft delete support for business entities
-* Activity audit logging
+* Audit logging
+* Soft delete support
 
 ---
 
-# 🤖 AI Capabilities
+# 📌 Project Vision
 
-Nexivo AI provides a dedicated AI infrastructure for agency workflows.
-
-Features include:
-
-* AI conversations
-* Message history
-* AI proposal generation
-* Proposal lifecycle management
-* Proposal acceptance workflow
-* AI usage tracking
-* Token usage logging
-* Workflow automation execution tracking
-
-The AI module is designed to integrate with external AI providers while maintaining complete conversation and usage history inside PostgreSQL.
-
----
-
-# 💳 Stripe Payment Flow
-
-```mermaid
-sequenceDiagram
-
-Client->>API: Create Checkout Session
-
-API->>Stripe: Create Checkout Session
-
-Stripe-->>Client: Checkout URL
-
-Client->>Stripe: Complete Payment
-
-Stripe->>API: Webhook Event
-
-API->>Database: Update Payment
-
-API->>Database: Update Invoice Status
-```
-
----
-
-# 📂 File Upload Flow
+Nexivo AI is designed to become a **single operational platform for AI-powered digital agencies**.
 
 ```text
+Lead
+  ↓
 Client
-
-   │
-
-   ▼
-
-multipart/form-data
-
-   │
-
-   ▼
-
-Multer
-
-   │
-
-   ▼
-
-Cloudinary
-
-   │
-
-   ▼
-
-Database stores URL
+  ↓
+Project
+  ↓
+Milestones
+  ↓
+Proposal
+  ↓
+Invoice
+  ↓
+Payment
+  ↓
+Delivery
+  ↓
+AI Automation
 ```
 
-Supported file categories include:
-
-* IMAGE
-* DOCUMENT
-* VIDEO
-* ARCHIVE
-* OTHER
+The architecture is intentionally modular so new AI tools, integrations, workflows, and business modules can be added without rewriting the core system.
 
 ---
 
@@ -904,7 +656,7 @@ Supported file categories include:
 
 Full Stack Developer
 
-GitHub: `Alaminahmedariyan`
+GitHub: [@Alaminahmedariyan](https://github.com/Alaminahmedariyan)
 
 ---
 
