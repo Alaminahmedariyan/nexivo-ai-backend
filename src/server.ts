@@ -1,16 +1,19 @@
 import "dotenv/config";
+
 import type { Server } from "http";
+
 import app from "./app";
-import { prisma } from "./lib/prisma";
 import config from "./app/config";
+import { prisma } from "./lib/prisma";
 
 const PORT = config.app.port;
 
-let server: Server;
+let server: Server | undefined;
 
 async function main() {
   try {
     await prisma.$connect();
+
     console.log("Connected to the database successfully.");
 
     server = app.listen(PORT, () => {
@@ -18,7 +21,9 @@ async function main() {
     });
   } catch (error) {
     console.error("Error starting the server:", error);
+
     await prisma.$disconnect();
+
     process.exit(1);
   }
 }
@@ -26,13 +31,20 @@ async function main() {
 const shutdown = async (signal: string) => {
   console.log(`\n${signal} received. Shutting down gracefully...`);
 
-  server?.close(async () => {
+  if (!server) {
     await prisma.$disconnect();
+    process.exit(0);
+  }
+
+  server.close(async () => {
+    await prisma.$disconnect();
+
     console.log("Server closed, database disconnected.");
+
     process.exit(0);
   });
 
-  // Force-exit if something hangs (e.g. a stuck connection) beyond 10s.
+  // Force exit if shutdown hangs.
   setTimeout(() => {
     console.error("Forced shutdown after timeout.");
     process.exit(1);
@@ -52,4 +64,4 @@ process.on("uncaughtException", (error) => {
   shutdown("uncaughtException");
 });
 
-main();
+void main();
