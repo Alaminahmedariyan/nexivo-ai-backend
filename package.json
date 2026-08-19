@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsup --skipNodeModulesBundle",
+    "build": "tsup src/server.ts --format esm",
     "seed": "tsx prisma/seed.ts",
     "postinstall": "prisma generate",
     "generate": "prisma generate",
