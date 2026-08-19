@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "description": "Nexivo AI - AI Agency SaaS Platform",
   "main": "dist/server.js",
-  "scripts": {
+"scripts": {
   "dev": "tsx watch src/server.ts",
-  "build": "prisma generate",
+  "build": "prisma generate && tsup",
   "start": "node dist/server.js",
   "seed": "tsx prisma/seed.ts",
   "postinstall": "prisma generate",
@@ -14,8 +14,7 @@
   "migrate:deploy": "prisma migrate deploy",
   "studio": "prisma studio",
   "reset": "prisma migrate reset",
-  "db:setup": "prisma generate && prisma migrate dev && pnpm run seed",
-  "test": "echo \"Error: no test specified\" && exit 1"
+  "db:setup": "prisma generate && prisma migrate dev && pnpm run seed"
 },
   "author": "",
   "license": "ISC",
