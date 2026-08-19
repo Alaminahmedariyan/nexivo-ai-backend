@@ -1,15 +1,14 @@
 {
   "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "src/app.ts",
-      "use": "@vercel/node"
+      "source": "/(.*)",
+      "destination": "/api"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/app.ts"
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "generated/prisma/**"
     }
-  ]
+  }
 }

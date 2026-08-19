@@ -11,7 +11,7 @@ if (!connectionString) {
 
 const pool = new Pool({
   connectionString,
-  max: 10,
+  max: 1,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 10000,
 });
