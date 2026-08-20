@@ -8,7 +8,7 @@
   ],
   "functions": {
     "api/index.ts": {
-      "includeFiles": "generated/prisma/**"
+      "includeFiles": "{generated/prisma/**,node_modules/@prisma/client-runtime-utils/**}"
     }
   }
 }
