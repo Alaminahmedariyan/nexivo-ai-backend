@@ -42,9 +42,20 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 /**
  * CORS configuration.
  */
+const allowedOrigins = [
+  config.app.clientUrl,
+  "http://localhost:3000",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: config.app.clientUrl,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );
