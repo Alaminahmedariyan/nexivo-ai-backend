@@ -36,12 +36,12 @@ export const auth = betterAuth({
   // =========================================================
   trustedOrigins: [
     config.app.clientUrl,
+    config.betterAuth.url,
 
     ...(config.app.env !== "production"
       ? [
           "http://localhost:3000",
           "http://localhost:5173",
-          "https://nexivo-ai-frontend.vercel.app"
         ]
       : []),
   ],
