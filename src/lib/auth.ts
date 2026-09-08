@@ -18,6 +18,7 @@ import {
   verificationEmailTemplate,
   resetPasswordEmailTemplate,
   otpEmailTemplate,
+  welcomeEmailTemplate,
 } from "../app/utils/emailTemplates";
 
 export const auth = betterAuth({
@@ -110,8 +111,21 @@ export const auth = betterAuth({
       });
     },
 
-    sendOnSignUp: true,
+    // IMPORTANT: false rakhte hobe. emailOTP plugin (nicher plugins array e)
+    // already signup-e OTP email pathay. eita true thakle DOUBLE email jeto
+    // (ekta link-based, ekta OTP-based) — eitai apnar age er bug chilo.
+    sendOnSignUp: false,
     autoSignInAfterVerification: true,
+
+    // Email verify shesh hole (OTP diye verify korlei) ei hook call hoy —
+    // ekhane welcome email pathacchi.
+    onEmailVerification: async (user: any) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Welcome to Nexivo AI!",
+        html: welcomeEmailTemplate(user.name),
+      });
+    },
   },
 
   account: {
@@ -144,7 +158,11 @@ export const auth = betterAuth({
     useSecureCookies: config.app.env === "production",
 
     defaultCookieAttributes: {
-      sameSite: config.app.env === "production" ? "none" : "lax",
+      // "none" theke "lax" e fix kora holo. Frontend e Next.js rewrite
+      // add korle (age er message e dekhano) shob request browser er
+      // kache same-origin mone hobe, tai "lax" e kaj korbe ar cookie
+      // thik moto frontend domain e set hobe.
+      sameSite: "lax",
       secure: config.app.env === "production",
       httpOnly: true,
     },

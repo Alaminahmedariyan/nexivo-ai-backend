@@ -41,3 +41,11 @@ export const resetPasswordEmailTemplate = (name: string, url: string) => `
     <p style="font-size: 13px; color: #666;">If you didn't request this, you can safely ignore this email.</p>
   </div>
 `;
+
+export const welcomeEmailTemplate = (name: string) => `
+  <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; color: #111;">
+    <h2>Welcome to Nexivo AI, ${name}!</h2>
+    <p>Your email has been verified and your account is now fully active.</p>
+    <p>You can now log in and start using Nexivo AI.</p>
+  </div>
+`;
