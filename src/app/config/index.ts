@@ -26,8 +26,16 @@ const envSchema = z.object({
   CLOUDINARY_API_KEY: z.string().min(1),
   CLOUDINARY_API_SECRET: z.string().min(1),
 
-  RESEND_API_KEY: z.string().min(1, "RESEND_API_KEY is required."),
+  RESEND_API_KEY: z.string().optional(),
   EMAIL_FROM: z.string().email(),
+
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().optional(),
+  SMTP_SECURE: z.coerce.boolean().optional(),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+
+  REDIS_URL: z.string().url().optional(),
 
   STRIPE_PRODUCT_ID: z.string().optional(),
   STRIPE_SECRET_KEY: z.string().optional(),
@@ -84,6 +92,18 @@ const config = {
   resend: {
     apiKey: env.RESEND_API_KEY,
     fromEmail: env.EMAIL_FROM,
+  },
+
+  smtp: {
+    host: env.SMTP_HOST,
+    port: env.SMTP_PORT,
+    secure: env.SMTP_SECURE,
+    user: env.SMTP_USER,
+    pass: env.SMTP_PASS,
+  },
+
+  redis: {
+    url: env.REDIS_URL ?? "",
   },
 
   stripe: {

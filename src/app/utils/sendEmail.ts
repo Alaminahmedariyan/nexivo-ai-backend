@@ -1,7 +1,5 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import config from "../config";
-
-const resend = new Resend(config.resend.apiKey);
 
 type SendEmailInput = {
   to: string;
@@ -9,13 +7,26 @@ type SendEmailInput = {
   html: string;
 };
 
-// Intentionally swallows errors instead of throwing — a failed email
-// shouldn't fail the request that triggered it (e.g. registration should
-// still succeed even if the verification email doesn't go out; the user
-// can request a resend later).
+const transporter = config.smtp.host
+  ? nodemailer.createTransport({
+      host: config.smtp.host,
+      port: config.smtp.port,
+      secure: config.smtp.secure,
+      auth: {
+        user: config.smtp.user,
+        pass: config.smtp.pass,
+      },
+    })
+  : null;
+
 export const sendEmail = async ({ to, subject, html }: SendEmailInput) => {
+  if (!transporter) {
+    console.warn("[Email] SMTP not configured. Email not sent:", { to, subject });
+    return;
+  }
+
   try {
-    await resend.emails.send({
+    await transporter.sendMail({
       from: config.resend.fromEmail,
       to,
       subject,

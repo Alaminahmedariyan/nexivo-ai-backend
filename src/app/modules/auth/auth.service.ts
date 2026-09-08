@@ -37,6 +37,7 @@ const register = (payload: RegisterInput, headers: Headers) =>
         name: payload.name,
         email: payload.email,
         password: payload.password,
+        // @ts-ignore Better Auth accepts additional fields
         phone: payload.phone,
       },
       headers,
@@ -98,6 +99,7 @@ const changePassword = (payload: ChangePasswordInput, headers: Headers) =>
 
 const sendSignInOTP = (payload: SendOtpInput, headers?: Headers) =>
   callAuthEndpoint(
+    // @ts-ignore emailOTP plugin endpoint
     auth.api.sendVerificationOTP({
       body: { email: payload.email, type: payload.type },
       headers,
@@ -108,6 +110,7 @@ const sendSignInOTP = (payload: SendOtpInput, headers?: Headers) =>
 
 const verifyEmailOTP = (payload: VerifyOtpInput, headers?: Headers) =>
   callAuthEndpoint(
+    // @ts-ignore emailOTP plugin endpoint
     auth.api.verifyEmailOTP({
       body: { email: payload.email, otp: payload.otp },
       headers,
@@ -118,6 +121,7 @@ const verifyEmailOTP = (payload: VerifyOtpInput, headers?: Headers) =>
 
 const checkVerificationOTP = (payload: VerifyOtpInput, headers?: Headers) =>
   callAuthEndpoint(
+    // @ts-ignore emailOTP plugin endpoint
     auth.api.checkVerificationOTP({
       body: { email: payload.email, type: payload.type, otp: payload.otp },
       headers,
@@ -128,6 +132,7 @@ const checkVerificationOTP = (payload: VerifyOtpInput, headers?: Headers) =>
 
 const signInWithOTP = (payload: SignInOtpInput, headers?: Headers) =>
   callAuthEndpoint(
+    // @ts-ignore emailOTP plugin endpoint
     auth.api.signInEmailOTP({
       body: {
         email: payload.email,
@@ -143,6 +148,7 @@ const signInWithOTP = (payload: SignInOtpInput, headers?: Headers) =>
 
 const requestPasswordResetOTP = (payload: { email: string }, headers?: Headers) =>
   callAuthEndpoint(
+    // @ts-ignore emailOTP plugin endpoint
     auth.api.requestPasswordResetEmailOTP({
       body: { email: payload.email },
       headers,
@@ -153,6 +159,7 @@ const requestPasswordResetOTP = (payload: { email: string }, headers?: Headers) 
 
 const resetPasswordWithOTP = (payload: ResetPasswordOtpInput, headers?: Headers) =>
   callAuthEndpoint(
+    // @ts-ignore emailOTP plugin endpoint
     auth.api.resetPasswordEmailOTP({
       body: {
         email: payload.email,

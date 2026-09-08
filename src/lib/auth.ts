@@ -6,9 +6,11 @@ import {
   emailOTP,
   multiSession,
   lastLoginMethod,
+  oauthPopup,
 } from "better-auth/plugins";
 
 import { prisma } from "./prisma";
+import { redis } from "./redis";
 import config from "../app/config";
 import { sendEmail } from "../app/utils/sendEmail";
 
@@ -140,6 +142,11 @@ export const auth = betterAuth({
   // =========================================================
   // OAuth / Social Login
   // =========================================================
+  account: {
+    storeStateStrategy: "database",
+    skipStateCookieCheck: true,
+  },
+
   socialProviders: {
     google: {
       clientId: config.oauth.google.clientId!,
@@ -171,6 +178,36 @@ export const auth = betterAuth({
       secure: config.app.env === "production",
     },
   },
+
+  // =========================================================
+  // Redis Secondary Storage
+  // =========================================================
+  secondaryStorage: config.redis.url
+    ? {
+        get: async (key) => {
+          const value = await redis.get(`nexivo:${key}`);
+          return value ?? null;
+        },
+        getAndDelete: async (key) => {
+          const value = await redis.getdel(`nexivo:${key}`);
+          return value ?? null;
+        },
+        set: async (key, value, ttl) => {
+          if (ttl) await redis.setex(`nexivo:${key}`, ttl, value as string);
+          else await redis.set(`nexivo:${key}`, value as string);
+        },
+        delete: async (key) => {
+          await redis.del(`nexivo:${key}`);
+        },
+        increment: async (key, ttl) => {
+          const current = await redis.incr(`nexivo:${key}`);
+          if (current === 1 && ttl) {
+            await redis.expire(`nexivo:${key}`, ttl);
+          }
+          return current;
+        },
+      }
+    : undefined,
 
   // =========================================================
   // Plugins
@@ -207,5 +244,7 @@ export const auth = betterAuth({
     }),
 
     lastLoginMethod({}),
+
+    oauthPopup(),
   ],
 });
