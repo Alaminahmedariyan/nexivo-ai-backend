@@ -21,21 +21,12 @@ import {
 } from "../app/utils/emailTemplates";
 
 export const auth = betterAuth({
-  // =========================================================
-  // Database
-  // =========================================================
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
 
-  // =========================================================
-  // Better Auth URL
-  // =========================================================
   baseURL: config.betterAuth.url,
 
-  // =========================================================
-  // Trusted Origins
-  // =========================================================
   trustedOrigins: [
     config.app.clientUrl,
     config.betterAuth.url,
@@ -48,9 +39,6 @@ export const auth = betterAuth({
       : []),
   ],
 
-  // =========================================================
-  // User
-  // =========================================================
   user: {
     additionalFields: {
       role: {
@@ -87,18 +75,11 @@ export const auth = betterAuth({
     },
   },
 
-  // =========================================================
-  // Email + Password Authentication
-  // =========================================================
   emailAndPassword: {
     enabled: true,
 
-    // Production-এ email verification required থাকবে
     requireEmailVerification: config.app.env === "production",
 
-    // =======================================================
-    // Password Reset Email
-    // =======================================================
     sendResetPassword: async ({
       user,
       url,
@@ -114,9 +95,6 @@ export const auth = betterAuth({
     },
   },
 
-  // =========================================================
-  // Email Verification
-  // =========================================================
   emailVerification: {
     sendVerificationEmail: async ({
       user,
@@ -132,16 +110,10 @@ export const auth = betterAuth({
       });
     },
 
-    // Registration-এর পর verification email পাঠাবে
     sendOnSignUp: true,
-
-    // Verification successful হলে automatically sign in করবে
     autoSignInAfterVerification: true,
   },
 
-  // =========================================================
-  // OAuth / Social Login
-  // =========================================================
   account: {
     storeStateStrategy: "database",
     skipStateCookieCheck: true,
@@ -159,29 +131,21 @@ export const auth = betterAuth({
     },
   },
 
-  // =========================================================
-  // Session
-  // =========================================================
   session: {
     expiresIn: 7 * 24 * 60 * 60,
     updateAge: 24 * 60 * 60,
   },
 
-  // =========================================================
-  // Security / Cookies
-  // =========================================================
   advanced: {
     useSecureCookies: config.app.env === "production",
 
     defaultCookieAttributes: {
       sameSite: config.app.env === "production" ? "none" : "lax",
       secure: config.app.env === "production",
+      httpOnly: true,
     },
   },
 
-  // =========================================================
-  // Redis Secondary Storage
-  // =========================================================
   secondaryStorage: config.redis.url
     ? {
         get: async (key) => {
@@ -209,9 +173,6 @@ export const auth = betterAuth({
       }
     : undefined,
 
-  // =========================================================
-  // Plugins
-  // =========================================================
   plugins: [
     bearer(),
 
