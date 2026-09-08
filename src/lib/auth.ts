@@ -117,6 +117,10 @@ export const auth = betterAuth({
   account: {
     storeStateStrategy: "database",
     skipStateCookieCheck: true,
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["google", "github"],
+    },
   },
 
   socialProviders: {
