@@ -26,3 +26,32 @@ export type ChangePasswordInput = {
   newPassword: string;
   revokeOtherSessions?: boolean;
 };
+
+export type SendOtpInput = {
+  email: string;
+  type: "sign-in" | "email-verification" | "forget-password" | "change-email";
+};
+
+export type VerifyOtpInput = {
+  email: string;
+  type: "sign-in" | "email-verification" | "forget-password" | "change-email";
+  otp: string;
+};
+
+export type SignInOtpInput = {
+  email: string;
+  otp: string;
+  name?: string;
+  image?: string;
+};
+
+export type ResetPasswordOtpInput = {
+  email: string;
+  otp: string;
+  password: string;
+};
+
+export type ChangeEmailOtpInput = {
+  newEmail: string;
+  otp: string;
+};

@@ -1,6 +1,12 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { bearer, twoFactor } from "better-auth/plugins";
+import {
+  bearer,
+  twoFactor,
+  emailOTP,
+  multiSession,
+  lastLoginMethod,
+} from "better-auth/plugins";
 
 import { prisma } from "./prisma";
 import config from "../app/config";
@@ -9,6 +15,7 @@ import { sendEmail } from "../app/utils/sendEmail";
 import {
   verificationEmailTemplate,
   resetPasswordEmailTemplate,
+  otpEmailTemplate,
 } from "../app/utils/emailTemplates";
 
 export const auth = betterAuth({
@@ -173,5 +180,31 @@ export const auth = betterAuth({
     twoFactor({
       issuer: "Nexivo AI",
     }),
+
+    emailOTP({
+      sendVerificationOTP: async ({ email, otp, type }) => {
+        await sendEmail({
+          to: email,
+          subject: "Your Nexivo AI verification code",
+          html: otpEmailTemplate("User", otp, type),
+        });
+      },
+      sendVerificationOnSignUp: true,
+      disableSignUp: false,
+      expiresIn: 300,
+      otpLength: 6,
+      allowedAttempts: 3,
+      storeOTP: "plain",
+      rateLimit: {
+        window: 60,
+        max: 3,
+      },
+    }),
+
+    multiSession({
+      maximumSessions: 5,
+    }),
+
+    lastLoginMethod({}),
   ],
 });

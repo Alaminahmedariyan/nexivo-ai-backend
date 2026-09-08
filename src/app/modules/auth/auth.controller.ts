@@ -33,7 +33,7 @@ const logout = catchAsync(async (req: Request, res: Response) => {
 });
 
 const forgotPassword = catchAsync(async (req: Request, res: Response) => {
-  const { data } = await authService.forgotPassword(req.body);
+  const { data } = await authService.forgotPassword(req.body, fromNodeHeaders(req.headers));
 
   res.status(StatusCodes.OK).json({
     success: true,
@@ -43,7 +43,7 @@ const forgotPassword = catchAsync(async (req: Request, res: Response) => {
 });
 
 const resetPassword = catchAsync(async (req: Request, res: Response) => {
-  const { data } = await authService.resetPassword(req.body);
+  const { data } = await authService.resetPassword(req.body, fromNodeHeaders(req.headers));
 
   res.status(StatusCodes.OK).json({
     success: true,
@@ -70,6 +70,68 @@ const getMe = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const sendSignInOtp = catchAsync(async (req: Request, res: Response) => {
+  const { data } = await authService.sendSignInOTP(req.body, fromNodeHeaders(req.headers));
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "Verification code sent to your email.",
+    data,
+  });
+});
+
+const verifyEmailOtp = catchAsync(async (req: Request, res: Response) => {
+  const { data, headers } = await authService.verifyEmailOTP(req.body, fromNodeHeaders(req.headers));
+  applyAuthCookies(headers, res);
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: data?.token ? "Email verified and signed in successfully." : "Email verified successfully.",
+    data,
+  });
+});
+
+const checkVerificationOtp = catchAsync(async (req: Request, res: Response) => {
+  const { data } = await authService.checkVerificationOTP(req.body, fromNodeHeaders(req.headers));
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "Verification code is valid.",
+    data,
+  });
+});
+
+const signInWithOtp = catchAsync(async (req: Request, res: Response) => {
+  const { data, headers } = await authService.signInWithOTP(req.body, fromNodeHeaders(req.headers));
+  applyAuthCookies(headers, res);
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "Signed in successfully with OTP.",
+    data,
+  });
+});
+
+const requestPasswordResetOtp = catchAsync(async (req: Request, res: Response) => {
+  const { data } = await authService.requestPasswordResetOTP(req.body, fromNodeHeaders(req.headers));
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "If an account exists for this email, a reset code has been sent.",
+    data,
+  });
+});
+
+const resetPasswordWithOtp = catchAsync(async (req: Request, res: Response) => {
+  const { data } = await authService.resetPasswordWithOTP(req.body, fromNodeHeaders(req.headers));
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "Password reset successfully with OTP. You can now log in.",
+    data,
+  });
+});
+
 export const authController = {
   register,
   login,
@@ -78,4 +140,10 @@ export const authController = {
   resetPassword,
   changePassword,
   getMe,
+  sendSignInOtp,
+  verifyEmailOtp,
+  checkVerificationOtp,
+  signInWithOtp,
+  requestPasswordResetOtp,
+  resetPasswordWithOtp,
 };

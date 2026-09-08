@@ -7,6 +7,10 @@ import type {
   ForgotPasswordInput,
   ResetPasswordInput,
   ChangePasswordInput,
+  SendOtpInput,
+  VerifyOtpInput,
+  SignInOtpInput,
+  ResetPasswordOtpInput,
 } from "./auth.interface";
 
 const callAuthEndpoint = async (
@@ -58,19 +62,21 @@ const login = (payload: LoginInput, headers: Headers) =>
 const logout = (headers: Headers) =>
   callAuthEndpoint(auth.api.signOut({ headers, asResponse: true }), AUTH_FALLBACK_MESSAGES.LOGOUT);
 
-const forgotPassword = (payload: ForgotPasswordInput) =>
+const forgotPassword = (payload: ForgotPasswordInput, headers?: Headers) =>
   callAuthEndpoint(
     auth.api.requestPasswordReset({
       body: { email: payload.email, redirectTo: payload.redirectTo },
+      headers,
       asResponse: true,
     }),
     AUTH_FALLBACK_MESSAGES.FORGOT_PASSWORD,
   );
 
-const resetPassword = (payload: ResetPasswordInput) =>
+const resetPassword = (payload: ResetPasswordInput, headers?: Headers) =>
   callAuthEndpoint(
     auth.api.resetPassword({
       body: { newPassword: payload.newPassword, token: payload.token },
+      headers,
       asResponse: true,
     }),
     AUTH_FALLBACK_MESSAGES.RESET_PASSWORD,
@@ -90,6 +96,75 @@ const changePassword = (payload: ChangePasswordInput, headers: Headers) =>
     AUTH_FALLBACK_MESSAGES.CHANGE_PASSWORD,
   );
 
+const sendSignInOTP = (payload: SendOtpInput, headers?: Headers) =>
+  callAuthEndpoint(
+    auth.api.sendVerificationOTP({
+      body: { email: payload.email, type: payload.type },
+      headers,
+      asResponse: true,
+    }),
+    AUTH_FALLBACK_MESSAGES.SEND_OTP,
+  );
+
+const verifyEmailOTP = (payload: VerifyOtpInput, headers?: Headers) =>
+  callAuthEndpoint(
+    auth.api.verifyEmailOTP({
+      body: { email: payload.email, otp: payload.otp },
+      headers,
+      asResponse: true,
+    }),
+    AUTH_FALLBACK_MESSAGES.VERIFY_OTP,
+  );
+
+const checkVerificationOTP = (payload: VerifyOtpInput, headers?: Headers) =>
+  callAuthEndpoint(
+    auth.api.checkVerificationOTP({
+      body: { email: payload.email, type: payload.type, otp: payload.otp },
+      headers,
+      asResponse: true,
+    }),
+    AUTH_FALLBACK_MESSAGES.VERIFY_OTP,
+  );
+
+const signInWithOTP = (payload: SignInOtpInput, headers?: Headers) =>
+  callAuthEndpoint(
+    auth.api.signInEmailOTP({
+      body: {
+        email: payload.email,
+        otp: payload.otp,
+        ...(payload.name ? { name: payload.name } : {}),
+        ...(payload.image ? { image: payload.image } : {}),
+      },
+      headers,
+      asResponse: true,
+    }),
+    AUTH_FALLBACK_MESSAGES.SIGN_IN_OTP,
+  );
+
+const requestPasswordResetOTP = (payload: { email: string }, headers?: Headers) =>
+  callAuthEndpoint(
+    auth.api.requestPasswordResetEmailOTP({
+      body: { email: payload.email },
+      headers,
+      asResponse: true,
+    }),
+    AUTH_FALLBACK_MESSAGES.SEND_OTP,
+  );
+
+const resetPasswordWithOTP = (payload: ResetPasswordOtpInput, headers?: Headers) =>
+  callAuthEndpoint(
+    auth.api.resetPasswordEmailOTP({
+      body: {
+        email: payload.email,
+        otp: payload.otp,
+        password: payload.password,
+      },
+      headers,
+      asResponse: true,
+    }),
+    AUTH_FALLBACK_MESSAGES.RESET_PASSWORD_OTP,
+  );
+
 export const authService = {
   register,
   login,
@@ -97,4 +172,10 @@ export const authService = {
   forgotPassword,
   resetPassword,
   changePassword,
+  sendSignInOTP,
+  verifyEmailOTP,
+  checkVerificationOTP,
+  signInWithOTP,
+  requestPasswordResetOTP,
+  resetPasswordWithOTP,
 };

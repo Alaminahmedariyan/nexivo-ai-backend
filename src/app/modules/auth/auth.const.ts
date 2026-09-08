@@ -6,4 +6,8 @@ export const AUTH_FALLBACK_MESSAGES = {
   FORGOT_PASSWORD: "Could not process the forgot password request.",
   RESET_PASSWORD: "Password reset failed. The link may be invalid or expired.",
   CHANGE_PASSWORD: "Could not change password.",
+  SEND_OTP: "Could not send verification code.",
+  VERIFY_OTP: "Verification failed. Invalid or expired code.",
+  SIGN_IN_OTP: "Sign in with OTP failed.",
+  RESET_PASSWORD_OTP: "Password reset with OTP failed.",
 } as const;

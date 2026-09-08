@@ -47,4 +47,46 @@ router.post(
 
 router.get("/me", requireAuth, authController.getMe);
 
+router.post(
+  "/otp/send",
+  publicRateLimiter,
+  validateRequest(authValidation.sendOtpSchema),
+  authController.sendSignInOtp,
+);
+
+router.post(
+  "/otp/verify-email",
+  publicRateLimiter,
+  validateRequest(authValidation.verifyOtpSchema),
+  authController.verifyEmailOtp,
+);
+
+router.post(
+  "/otp/check",
+  publicRateLimiter,
+  validateRequest(authValidation.verifyOtpSchema),
+  authController.checkVerificationOtp,
+);
+
+router.post(
+  "/otp/sign-in",
+  publicRateLimiter,
+  validateRequest(authValidation.signInOtpSchema),
+  authController.signInWithOtp,
+);
+
+router.post(
+  "/otp/forgot-password",
+  publicRateLimiter,
+  validateRequest(authValidation.requestPasswordResetOtpSchema),
+  authController.requestPasswordResetOtp,
+);
+
+router.post(
+  "/otp/reset-password",
+  publicRateLimiter,
+  validateRequest(authValidation.resetPasswordOtpSchema),
+  authController.resetPasswordWithOtp,
+);
+
 export const authRoutes = router;
